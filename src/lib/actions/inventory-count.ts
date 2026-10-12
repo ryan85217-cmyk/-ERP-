@@ -127,8 +127,11 @@ export async function createCountSession(_prev: FormState, formData: FormData): 
   });
   if (products.length === 0) return { error: t.count.noProducts };
 
-  const seq = (await prisma.inventoryCountSession.count({ where: { countDate } })) + 1;
-  const code = `IC${dayKey(countDate).replace(/-/g, "")}-${String(seq).padStart(2, "0")}-${Math.random().toString(36).slice(2, 5).toUpperCase()}`;
+  // IC{yyyymmdd}-{nn}: continue after the highest number already used for that prefix
+  const prefix = `IC${dayKey(countDate).replace(/-/g, "")}-`;
+  const existing = await prisma.inventoryCountSession.findMany({ where: { code: { startsWith: prefix } }, select: { code: true } });
+  const maxSeq = Math.max(0, ...existing.map((s) => parseInt(s.code.slice(prefix.length), 10) || 0));
+  const code = `${prefix}${String(maxSeq + 1).padStart(2, "0")}`;
   const now = new Date();
 
   const session = await prisma.inventoryCountSession.create({

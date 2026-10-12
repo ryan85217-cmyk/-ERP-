@@ -75,8 +75,8 @@ export default async function CountProgressPage() {
             return (
               <Card key={s.id} className="flex flex-col">
                 <CardHeader className="flex-row items-start justify-between gap-2">
-                  <div>
-                    <CardTitle className="font-mono text-sm">{s.code}</CardTitle>
+                  <div className="min-w-0">
+                    <CardTitle className="break-all font-mono text-sm">{s.code}</CardTitle>
                     <p className="mt-1 text-sm text-muted-foreground">
                       {formatDate(s.countDate, locale)} · {s.operator}
                     </p>
@@ -85,12 +85,16 @@ export default async function CountProgressPage() {
                       {s.zones.length ? fmt(c.scopeZones, { zones: s.zones.join(", ") }) : c.scopeAll}
                     </p>
                   </div>
-                  <Badge variant={COUNT_STATUS_VARIANT[s.status]}>{t.enums.countStatus[s.status]}</Badge>
+                  <Badge variant={COUNT_STATUS_VARIANT[s.status]} className="shrink-0 whitespace-nowrap">
+                    {t.enums.countStatus[s.status]}
+                  </Badge>
                 </CardHeader>
                 <CardContent className="flex flex-1 flex-col gap-4">
                   <div>
                     <div className="mb-1.5 flex justify-between text-sm">
                       <span>{fmt(c.countedOf, { done: s.countedCount, total })}</span>
+                      {/* keeps "8" and "0%" apart when the text is read aloud or copied */}
+                      <span className="sr-only"> · </span>
                       <span className="font-medium">{pct.toFixed(0)}%</span>
                     </div>
                     <Progress value={pct} barClassName={s.status === "PAUSED" ? "bg-warning" : undefined} />

@@ -23,8 +23,10 @@ export async function Topbar() {
           href="/inventory/alerts"
           className="relative inline-flex size-9 items-center justify-center rounded-md border bg-card hover:bg-muted"
           aria-label={t.nav.invAlerts}
+          title={t.nav.invAlerts}
         >
-          <Bell className="size-4" />
+          <Bell className="size-4" aria-hidden />
+          <span className="sr-only">{t.nav.invAlerts}</span>
           <span className="absolute -right-0.5 -top-0.5 size-2.5 rounded-full bg-destructive" />
         </Link>
         <div className="flex items-center gap-2">
