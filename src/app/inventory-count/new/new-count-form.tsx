@@ -1,9 +1,11 @@
 "use client";
 
 import { startTransition, useActionState, useState } from "react";
-import { ClipboardList, Loader2, MapPin, Tags } from "lucide-react";
-import { createCountSession } from "@/lib/actions/inventory-count";
+import Link from "next/link";
+import { AlertTriangle, ClipboardList, Loader2, MapPin, Tags } from "lucide-react";
+import { createCountSession, type CreateCountState } from "@/lib/actions/inventory-count";
 import { initialFormState } from "@/lib/actions/types";
+import { COUNT_STATUS_VARIANT } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { fmt } from "@/i18n/config";
 import { useI18n } from "@/i18n/client";
@@ -11,6 +13,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { FormField } from "@/components/shared/form-field";
 
 type ScopeMode = "zone" | "category";
@@ -30,11 +33,15 @@ export function NewCountForm({
 }) {
   const { t } = useI18n();
   const c = t.count;
-  const [state, formAction, pending] = useActionState(createCountSession, initialFormState);
+  const [state, formAction, pending] = useActionState<CreateCountState, FormData>(createCountSession, initialFormState);
   const [mode, setMode] = useState<ScopeMode>("zone");
   const [selectedCats, setSelectedCats] = useState<string[]>([]);
   const [selectedZones, setSelectedZones] = useState<string[]>([]);
   const fe = state.fieldErrors ?? {};
+  // the overlap warning only applies to the scope it was computed for
+  const scopeKey = mode === "zone" ? `z:${[...selectedZones].sort()}` : `c:${[...selectedCats].sort()}`;
+  const [submittedScope, setSubmittedScope] = useState(scopeKey);
+  const overlaps = submittedScope === scopeKey ? state.overlaps : undefined;
 
   const totalProducts =
     mode === "zone"
@@ -55,6 +62,7 @@ export function NewCountForm({
       onSubmit={(e) => {
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
+        setSubmittedScope(scopeKey);
         startTransition(() => formAction(fd));
       }}
     >
@@ -184,7 +192,34 @@ export function NewCountForm({
             <input type="checkbox" name="startNow" defaultChecked className="size-4" />
             {c.startNow}
           </label>
-          {state.error && <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{state.error}</p>}
+          {overlaps?.length ? (
+            <div className="rounded-lg border border-warning/50 bg-warning/10 p-3 text-sm">
+              <p className="flex items-start gap-2 font-medium">
+                <AlertTriangle className="mt-0.5 size-4 shrink-0 text-warning" />
+                {state.error}
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">{c.overlapDesc}</p>
+              <ul className="mt-2 flex flex-col gap-1.5">
+                {overlaps.map((o) => (
+                  <li key={o.id} className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <Link href={`/inventory-count/${o.id}`} className="font-mono text-xs font-medium underline-offset-2 hover:underline">
+                      {o.code}
+                    </Link>
+                    <Badge variant={COUNT_STATUS_VARIANT[o.status]}>{t.enums.countStatus[o.status]}</Badge>
+                    <span className="text-xs text-muted-foreground">
+                      {o.zones.length ? fmt(c.scopeZones, { zones: o.zones.join(", ") }) : c.scopeAll} · {fmt(c.overlapItem, { n: o.overlapCount })}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <label className="mt-3 flex items-center gap-2 font-medium">
+                <input type="checkbox" name="confirmOverlap" className="size-4" />
+                {c.overlapConfirm}
+              </label>
+            </div>
+          ) : (
+            state.error && !state.overlaps && <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{state.error}</p>
+          )}
           <Button type="submit" disabled={pending}>
             {pending && <Loader2 className="animate-spin" />}
             {c.create}

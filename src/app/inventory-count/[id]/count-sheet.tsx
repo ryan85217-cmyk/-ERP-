@@ -2,7 +2,7 @@
 
 import { Fragment, useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircle2, ChevronsRight, Loader2, MapPin, Pause, Play, Save, Search } from "lucide-react";
+import { Check, CheckCircle2, ChevronsRight, Loader2, MapPin, Minus, Pause, Play, Plus, Save, Search, X } from "lucide-react";
 import type { CountStatus, VarianceReason } from "@prisma/client";
 import {
   completeCountSession,
@@ -209,7 +209,7 @@ export function CountSheet({ sessionId, status, items }: { sessionId: string; st
   ];
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className={cn("flex flex-col gap-4", editable && "pb-24 md:pb-0")}>
       {/* progress + actions */}
       <Card className="p-4">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
@@ -279,7 +279,7 @@ export function CountSheet({ sessionId, status, items }: { sessionId: string; st
             <ChevronsRight /> {c.nextLocation}
           </Button>
         </div>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="-mx-4 flex gap-1.5 overflow-x-auto px-4 pb-1 md:mx-0 md:flex-wrap md:overflow-visible md:px-0 md:pb-0">
           {locations.map((l) => {
             const done = l.done === l.total;
             const selected = location === l.key;
@@ -290,7 +290,7 @@ export function CountSheet({ sessionId, status, items }: { sessionId: string; st
                 onClick={() => setLocation(selected ? "" : l.key)}
                 title={l.type ?? undefined}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-md border px-2 py-1 text-xs transition-colors",
+                  "inline-flex shrink-0 items-center gap-1.5 rounded-md border px-2 py-1.5 text-xs transition-colors md:py-1",
                   done ? "border-success/40 bg-success/10" : l.done > 0 ? "border-warning/50 bg-warning/10" : "bg-card hover:bg-muted",
                   l.variance > 0 && "ring-1 ring-destructive/40",
                   selected && "border-primary ring-2 ring-primary/40",
@@ -345,7 +345,147 @@ export function CountSheet({ sessionId, status, items }: { sessionId: string; st
           </div>
         </div>
 
-        <div className="overflow-x-auto">
+        {location && (
+          <div className="flex items-center gap-2 border-b bg-primary/5 px-4 py-2 text-sm">
+            <MapPin className="size-4 text-primary" />
+            <span className="font-medium">{fmt(c.onlyLocation, { code: locations.find((l) => l.key === location)?.code ?? c.noLocation })}</span>
+            <Button type="button" variant="ghost" size="sm" className="ml-auto" onClick={() => setLocation("")}>
+              <X /> {c.showAllLocations}
+            </Button>
+          </div>
+        )}
+        {/* phones: one card per item, big touch targets */}
+        <div className="md:hidden">
+          {visible.length === 0 && <p className="py-10 text-center text-sm text-muted-foreground">{c.noRows}</p>}
+          {visible.map((r, idx) => {
+            const newGroup = idx === 0 || visible[idx - 1].locKey !== r.locKey;
+            const loc = newGroup ? locations.find((l) => l.key === r.locKey) : undefined;
+            const current = r.draft.actual === "" ? null : Number(r.draft.actual);
+            const step = (delta: number) => {
+              const base = current !== null && Number.isFinite(current) ? current : 0;
+              update(r.id, { actual: String(Math.max(0, base + delta)) });
+            };
+            return (
+              <Fragment key={r.id}>
+                {newGroup && loc && (
+                  <div className="sticky top-16 z-10 flex items-center gap-2 border-b bg-muted px-4 py-2 text-xs">
+                    <MapPin className="size-3.5 text-primary" />
+                    <span className="font-mono font-semibold">{loc.code ?? c.noLocation}</span>
+                    {loc.type && <span className="text-muted-foreground">{loc.type}</span>}
+                    <span className={cn("ml-auto tabular-nums", loc.done === loc.total ? "text-success" : "text-muted-foreground")}>
+                      {loc.done}/{loc.total}
+                    </span>
+                  </div>
+                )}
+                <div
+                  className={cn(
+                    "flex flex-col gap-3 border-b px-4 py-3",
+                    r.actual !== null && !r.variance && "bg-success/[0.04]",
+                    !!r.variance && "bg-destructive/[0.04]",
+                  )}
+                >
+                  <div className="flex items-center gap-3">
+                    <ProductThumb name={r.productName} imageUrl={r.imageUrl} colorKey={r.colorKey} className="size-10" />
+                    <div className="min-w-0 flex-1">
+                      <div className="font-medium leading-snug">{r.productName}</div>
+                      <div className="text-xs text-muted-foreground">
+                        <span className="font-mono">{r.sku}</span> · {r.categoryName}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-end gap-3">
+                    <div className="w-14 shrink-0">
+                      <div className="text-[11px] text-muted-foreground">POS</div>
+                      <div className="text-lg font-semibold tabular-nums">{r.posQty}</div>
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-[11px] text-muted-foreground">{c.colActualShort}</div>
+                      <div className="flex items-center gap-1.5">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="icon"
+                          className="size-11 shrink-0"
+                          disabled={!editable || !current}
+                          onClick={() => step(-1)}
+                          aria-label={c.qtyDec}
+                        >
+                          <Minus />
+                        </Button>
+                        <Input
+                          type="number"
+                          inputMode="numeric"
+                          min={0}
+                          step={1}
+                          value={r.draft.actual}
+                          disabled={!editable}
+                          aria-invalid={!r.valid}
+                          aria-label={`${r.productName} ${c.colActualShort}`}
+                          onChange={(e) => update(r.id, { actual: e.target.value })}
+                          className={cn("h-11 min-w-0 text-center text-lg tabular-nums", !r.valid && "border-destructive")}
+                          placeholder="—"
+                        />
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="icon"
+                          className="size-11 shrink-0"
+                          disabled={!editable}
+                          onClick={() => step(1)}
+                          aria-label={c.qtyInc}
+                        >
+                          <Plus />
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="w-12 shrink-0 text-right">
+                      <div className="text-[11px] text-muted-foreground">{c.variance}</div>
+                      <div
+                        className={cn(
+                          "text-lg font-semibold tabular-nums",
+                          r.variance ? (r.variance > 0 ? "text-destructive" : "text-info") : "text-muted-foreground",
+                        )}
+                      >
+                        {r.variance === null ? "—" : r.variance > 0 ? `+${r.variance}` : r.variance}
+                      </div>
+                    </div>
+                  </div>
+                  {editable && r.draft.actual === "" && (
+                    <Button type="button" variant="outline" size="sm" className="h-10" onClick={() => update(r.id, { actual: String(r.posQty) })}>
+                      <Check /> {c.matchPos}（{r.posQty}）
+                    </Button>
+                  )}
+                  {!!r.variance && (
+                    <div className="grid grid-cols-2 gap-2">
+                      <Select
+                        value={r.draft.reason}
+                        disabled={!editable}
+                        aria-label={c.colReason}
+                        onChange={(e) => update(r.id, { reason: e.target.value as VarianceReason | "" })}
+                        className={cn(!r.draft.reason && "[&_select]:border-warning")}
+                      >
+                        <option value="">{c.selectReason}</option>
+                        {VARIANCE_REASONS.map((reason) => (
+                          <option key={reason} value={reason}>
+                            {t.enums.reason[reason]}
+                          </option>
+                        ))}
+                      </Select>
+                      <Input
+                        value={r.draft.note}
+                        disabled={!editable}
+                        onChange={(e) => update(r.id, { note: e.target.value })}
+                        placeholder={t.common.note}
+                      />
+                    </div>
+                  )}
+                </div>
+              </Fragment>
+            );
+          })}
+        </div>
+
+        <div className="hidden overflow-x-auto md:block">
           <table className="w-full min-w-[860px] text-sm">
             <thead className="bg-muted/60 text-xs uppercase tracking-wide text-muted-foreground">
               <tr className="border-b">
@@ -459,6 +599,27 @@ export function CountSheet({ sessionId, status, items }: { sessionId: string; st
         </div>
         <p className="border-t px-4 py-3 text-xs text-muted-foreground">{c.formula}</p>
       </Card>
+
+      {editable && (
+        <div className="fixed inset-x-0 bottom-0 z-30 border-t bg-card/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur md:hidden">
+          <div className="mb-2 flex items-center gap-2 text-xs">
+            <span className="font-medium tabular-nums">{fmt(c.countedOf, { done: stats.counted, total: stats.total })}</span>
+            <Progress value={pct} className="flex-1" />
+            {dirty && <Badge variant="warning">{fmt(c.unsaved, { n: dirtyIds.length })}</Badge>}
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <Button variant="outline" className="h-11" onClick={jumpToNextLocation}>
+              <ChevronsRight /> {c.nextShort}
+            </Button>
+            <Button className="h-11" onClick={() => run(() => saveCountProgress(sessionId, payload()), c.msgSaved)} disabled={pending || !dirty}>
+              {pending ? <Loader2 className="animate-spin" /> : <Save />} {c.save}
+            </Button>
+          </div>
+          {message && (
+            <p className={cn("mt-2 text-xs", message.type === "ok" ? "text-success" : "text-destructive")}>{message.text}</p>
+          )}
+        </div>
+      )}
 
       <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
         <DialogContent>

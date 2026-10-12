@@ -18,6 +18,15 @@ export interface CountItemInput {
   note: string | null;
 }
 
+export interface CountOverlap {
+  id: string;
+  code: string;
+  status: "DRAFT" | "IN_PROGRESS" | "PAUSED";
+  zones: string[];
+  overlapCount: number;
+}
+export type CreateCountState = FormState & { overlaps?: CountOverlap[]; overlapTotal?: number };
+
 export type CountActionResult = { ok: true; savedAt: string } | { ok: false; error: string };
 
 const itemSchema = z.object({
@@ -99,7 +108,7 @@ async function fail(e: unknown): Promise<CountActionResult> {
 
 // ───────────────── create ─────────────────
 
-export async function createCountSession(_prev: FormState, formData: FormData): Promise<FormState> {
+export async function createCountSession(_prev: CreateCountState, formData: FormData): Promise<CreateCountState> {
   const { t } = await getI18n();
   const operator = emptyToNull(formData.get("operator"));
   const countDateRaw = emptyToNull(formData.get("countDate"));
@@ -126,6 +135,28 @@ export async function createCountSession(_prev: FormState, formData: FormData): 
     include: { inventory: true, location: true },
   });
   if (products.length === 0) return { error: t.count.noProducts };
+
+  // Guard: completing a count overwrites store stock, so the same product in two
+  // unfinished counts means the later one silently wins. Ask before allowing it.
+  if (formData.get("confirmOverlap") !== "on") {
+    const clashing = await prisma.inventoryCountItem.findMany({
+      where: {
+        productId: { in: products.map((p) => p.id) },
+        session: { status: { in: ["DRAFT", "IN_PROGRESS", "PAUSED"] } },
+      },
+      select: { productId: true, session: { select: { id: true, code: true, status: true, zones: true } } },
+    });
+    if (clashing.length) {
+      const bySession = new Map<string, CountOverlap>();
+      for (const { session } of clashing) {
+        const o = bySession.get(session.id) ?? { ...session, status: session.status as CountOverlap["status"], overlapCount: 0 };
+        o.overlapCount += 1;
+        bySession.set(session.id, o);
+      }
+      const overlapTotal = new Set(clashing.map((c) => c.productId)).size;
+      return { error: fmt(t.count.overlapTitle, { n: overlapTotal }), overlaps: [...bySession.values()], overlapTotal };
+    }
+  }
 
   // IC{yyyymmdd}-{nn}: continue after the highest number already used for that prefix
   const prefix = `IC${dayKey(countDate).replace(/-/g, "")}-`;
