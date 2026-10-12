@@ -1,0 +1,240 @@
+// Retail Store ERP — Prisma schema
+// Money values are stored as integers in TWD (NT$).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────── Products ───────────────────────────
+
+model Supplier {
+  id          String    @id @default(cuid())
+  name        String
+  contactName String?
+  phone       String?
+  email       String?
+  address     String?
+  note        String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  nameEn    String?
+  nameJa    String?
+  sortOrder Int       @default(0)
+  createdAt DateTime  @default(now())
+  products  Product[]
+}
+
+model Product {
+  id            String               @id @default(cuid())
+  sku           String               @unique
+  name          String
+  nameEn        String?
+  nameJa        String?
+  categoryId    String
+  category      Category             @relation(fields: [categoryId], references: [id])
+  imageUrl      String?
+  ingredients   String?
+  price         Int
+  origin        String?
+  supplierId    String?
+  supplier      Supplier?            @relation(fields: [supplierId], references: [id], onDelete: SetNull)
+  // primary storage location (shelf / chiller / backroom…)
+  locationId    String?
+  location      StorageLocation?     @relation(fields: [locationId], references: [id], onDelete: SetNull)
+  recipe        String?
+  cookingMethod String?
+  isActive      Boolean              @default(true)
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+  inventory     Inventory?
+  countItems    InventoryCountItem[]
+  orderItems    OrderItem[]
+
+  @@index([categoryId])
+  @@index([supplierId])
+  @@index([locationId])
+}
+
+// ─────────────────────────── Storage locations ───────────────────────────
+
+enum LocationType {
+  SHELF
+  DISPLAY
+  CHILLED
+  FROZEN
+  BACKROOM
+}
+
+/// A physical slot in the store, coded as {zone}-{aisle}-{level}, e.g. "B-02-03".
+model StorageLocation {
+  id         String               @id @default(cuid())
+  code       String               @unique
+  zone       String
+  aisle      Int
+  level      Int
+  type       LocationType         @default(SHELF)
+  // max units the slot can hold; used for utilization
+  capacity   Int?
+  // walking order for stock counts (lower first)
+  sortOrder  Int                  @default(0)
+  note       String?
+  isActive   Boolean              @default(true)
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
+  products   Product[]
+  countItems InventoryCountItem[]
+
+  @@index([zone])
+}
+
+// ─────────────────────────── Inventory ───────────────────────────
+
+model Inventory {
+  id             String   @id @default(cuid())
+  productId      String   @unique
+  product        Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  posStock       Int      @default(0)
+  storeStock     Int      @default(0)
+  warehouseStock Int      @default(0)
+  safetyStock    Int      @default(0)
+  lastSyncedAt   DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+enum CountStatus {
+  DRAFT
+  IN_PROGRESS
+  PAUSED
+  COMPLETED
+}
+
+enum VarianceReason {
+  DAMAGED
+  EXPIRED
+  THEFT
+  MISCOUNT
+  SYSTEM_ERROR
+  UNRECORDED_SALE
+  SUPPLIER_SHORTAGE
+  OTHER
+}
+
+model InventoryCountSession {
+  id             String               @id @default(cuid())
+  code           String               @unique
+  countDate      DateTime
+  operator       String
+  status         CountStatus          @default(DRAFT)
+  note           String?
+  // zones in scope; empty = whole store
+  zones          String[]             @default([])
+  countedCount   Int                  @default(0)
+  uncountedCount Int                  @default(0)
+  totalVariance  Int                  @default(0)
+  startedAt      DateTime?
+  pausedAt       DateTime?
+  completedAt    DateTime?
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  items          InventoryCountItem[]
+
+  @@index([status])
+}
+
+model InventoryCountItem {
+  id           String                @id @default(cuid())
+  sessionId    String
+  session      InventoryCountSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  productId    String
+  product      Product               @relation(fields: [productId], references: [id], onDelete: Cascade)
+  // where the item was counted (snapshot of the product's location when the count was created)
+  locationId   String?
+  location     StorageLocation?      @relation(fields: [locationId], references: [id], onDelete: SetNull)
+  locationCode String?
+  posQty       Int
+  actualQty    Int?
+  // variance = posQty - actualQty
+  variance     Int?
+  reason       VarianceReason?
+  note         String?
+  countedAt    DateTime?
+  updatedAt    DateTime              @updatedAt
+
+  @@unique([sessionId, productId])
+  @@index([productId])
+  @@index([locationId])
+}
+
+// ─────────────────────────── CRM ───────────────────────────
+
+enum MemberSegment {
+  NEW
+  ACTIVE
+  RETURNING
+  INACTIVE
+}
+
+model Member {
+  id             String        @id @default(cuid())
+  memberNumber   String        @unique
+  name           String
+  phone          String        @unique
+  email          String?
+  joinedAt       DateTime      @default(now())
+  lastPurchaseAt DateTime?
+  purchaseCount  Int           @default(0)
+  totalSpent     Int           @default(0)
+  avgOrderValue  Int           @default(0)
+  segment        MemberSegment @default(NEW)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  orders         Order[]
+
+  @@index([segment])
+}
+
+// ─────────────────────────── Sales ───────────────────────────
+
+model Order {
+  id            String      @id @default(cuid())
+  orderNumber   String      @unique
+  memberId      String?
+  member        Member?     @relation(fields: [memberId], references: [id], onDelete: SetNull)
+  orderedAt     DateTime
+  total         Int
+  itemCount     Int
+  paymentMethod String      @default("CASH")
+  createdAt     DateTime    @default(now())
+  items         OrderItem[]
+
+  @@index([orderedAt])
+  @@index([memberId])
+}
+
+model OrderItem {
+  id           String   @id @default(cuid())
+  orderId      String
+  order        Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId    String?
+  product      Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  // snapshots so history survives product edits/deletion
+  productName  String
+  categoryName String
+  quantity     Int
+  unitPrice    Int
+  subtotal     Int
+
+  @@index([orderId])
+  @@index([productId])
+}

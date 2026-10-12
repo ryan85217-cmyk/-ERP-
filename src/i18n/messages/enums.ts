@@ -1,0 +1,78 @@
+import { defineMessages } from "../config";
+
+export default defineMessages(
+  {
+    countStatus: { DRAFT: "草稿", IN_PROGRESS: "盤點中", PAUSED: "已暫停", COMPLETED: "已完成" },
+    reason: {
+      DAMAGED: "商品毀損",
+      EXPIRED: "過期報廢",
+      THEFT: "失竊",
+      MISCOUNT: "點數錯誤",
+      SYSTEM_ERROR: "系統誤差",
+      UNRECORDED_SALE: "未入帳銷售",
+      SUPPLIER_SHORTAGE: "廠商短交",
+      OTHER: "其他",
+    },
+    segment: { NEW: "新會員", ACTIVE: "活躍會員", RETURNING: "回購會員", INACTIVE: "久未消費" },
+    segmentDesc: {
+      NEW: "加入 30 天內，或僅消費 1 次",
+      ACTIVE: "近 30 天有消費且累計 ≥ 6 次",
+      RETURNING: "累計消費 ≥ 2 次且 90 天內有消費",
+      INACTIVE: "超過 90 天未消費",
+    },
+    payment: { CASH: "現金", CARD: "信用卡", LINE_PAY: "LINE Pay", EASY_CARD: "悠遊卡" },
+    stockFlag: { low: "庫存不足", mismatch: "POS 不一致", high: "高庫存", ok: "正常" },
+    locationType: { SHELF: "常溫貨架", DISPLAY: "展示平台", CHILLED: "冷藏櫃", FROZEN: "冷凍櫃", BACKROOM: "後場倉儲" },
+    range: { today: "今日", "7d": "近 7 天", "30d": "近 30 天", year: "今年" },
+  },
+  {
+    ja: {
+      countStatus: { DRAFT: "下書き", IN_PROGRESS: "棚卸中", PAUSED: "一時停止", COMPLETED: "完了" },
+      reason: {
+        DAMAGED: "破損",
+        EXPIRED: "期限切れ廃棄",
+        THEFT: "盗難",
+        MISCOUNT: "数え間違い",
+        SYSTEM_ERROR: "システム誤差",
+        UNRECORDED_SALE: "未計上の販売",
+        SUPPLIER_SHORTAGE: "納品不足",
+        OTHER: "その他",
+      },
+      segment: { NEW: "新規会員", ACTIVE: "アクティブ会員", RETURNING: "リピート会員", INACTIVE: "休眠会員" },
+      segmentDesc: {
+        NEW: "入会 30 日以内、または購入 1 回のみ",
+        ACTIVE: "直近 30 日以内に購入があり、累計 6 回以上",
+        RETURNING: "累計 2 回以上購入し、90 日以内に購入あり",
+        INACTIVE: "90 日以上購入なし",
+      },
+      payment: { CASH: "現金", CARD: "クレジットカード", LINE_PAY: "LINE Pay", EASY_CARD: "悠遊カード" },
+      stockFlag: { low: "在庫不足", mismatch: "POS 不一致", high: "過剰在庫", ok: "正常" },
+      locationType: { SHELF: "常温棚", DISPLAY: "平台", CHILLED: "冷蔵ケース", FROZEN: "冷凍ケース", BACKROOM: "バックヤード" },
+      range: { today: "今日", "7d": "7 日間", "30d": "30 日間", year: "今年" },
+    },
+    en: {
+      countStatus: { DRAFT: "Draft", IN_PROGRESS: "In progress", PAUSED: "Paused", COMPLETED: "Completed" },
+      reason: {
+        DAMAGED: "Damaged",
+        EXPIRED: "Expired",
+        THEFT: "Theft",
+        MISCOUNT: "Miscount",
+        SYSTEM_ERROR: "System error",
+        UNRECORDED_SALE: "Unrecorded sale",
+        SUPPLIER_SHORTAGE: "Supplier shortage",
+        OTHER: "Other",
+      },
+      segment: { NEW: "New", ACTIVE: "Active", RETURNING: "Returning", INACTIVE: "Inactive" },
+      segmentDesc: {
+        NEW: "Joined within 30 days, or only 1 purchase",
+        ACTIVE: "Purchased in the last 30 days with ≥ 6 purchases",
+        RETURNING: "≥ 2 purchases and active within 90 days",
+        INACTIVE: "No purchase for over 90 days",
+      },
+      payment: { CASH: "Cash", CARD: "Credit card", LINE_PAY: "LINE Pay", EASY_CARD: "EasyCard" },
+      stockFlag: { low: "Low stock", mismatch: "POS mismatch", high: "Overstock", ok: "OK" },
+      locationType: { SHELF: "Ambient shelf", DISPLAY: "Display table", CHILLED: "Chiller", FROZEN: "Freezer", BACKROOM: "Backroom" },
+      range: { today: "Today", "7d": "7 Days", "30d": "30 Days", year: "This Year" },
+    },
+  },
+);
