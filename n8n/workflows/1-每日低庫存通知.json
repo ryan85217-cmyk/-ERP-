@@ -1,0 +1,176 @@
+{
+ "name": "ERP｜每日低庫存通知",
+ "nodes": [
+  {
+   "id": "0235764f-24d1-4570-b651-17826af7d574",
+   "name": "每天定時",
+   "type": "n8n-nodes-base.scheduleTrigger",
+   "typeVersion": 1.2,
+   "position": [
+    0,
+    0
+   ],
+   "parameters": {
+    "rule": {
+     "interval": [
+      {
+       "field": "cronExpression",
+       "expression": "0 8 * * *"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "697b98fa-3cdf-4627-be67-86bf1ccbdd12",
+   "name": "手動執行",
+   "type": "n8n-nodes-base.webhook",
+   "typeVersion": 2,
+   "position": [
+    0,
+    200
+   ],
+   "parameters": {
+    "httpMethod": "POST",
+    "path": "erp-run-low-stock",
+    "authentication": "headerAuth",
+    "responseMode": "onReceived",
+    "options": {}
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "name": "ERP API token"
+    }
+   },
+   "webhookId": "a0652542-2d8e-4ae9-9a17-6250aba48bc5"
+  },
+  {
+   "id": "68a4f870-5e88-45b7-91c2-56db00b59eee",
+   "name": "取低庫存",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    260,
+    100
+   ],
+   "parameters": {
+    "url": "https://smart-store-erp.zeabur.app/api/integrations/low-stock",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "options": {}
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "name": "ERP API token"
+    }
+   }
+  },
+  {
+   "id": "0d7f3605-cc1d-489e-974e-c9fdfcb4df98",
+   "name": "有資料才寄",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2.2,
+   "position": [
+    520,
+    100
+   ],
+   "parameters": {
+    "conditions": {
+     "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "loose",
+      "version": 2
+     },
+     "conditions": [
+      {
+       "id": "a0bba3ee-5d5c-445d-b6dc-75617ca9371f",
+       "leftValue": "={{ $json.count }}",
+       "rightValue": 0,
+       "operator": {
+        "type": "number",
+        "operation": "gt"
+       }
+      }
+     ],
+     "combinator": "and"
+    },
+    "options": {}
+   }
+  },
+  {
+   "id": "d099ea63-29a5-4896-85fd-20b9c2009d0c",
+   "name": "寄 Gmail",
+   "type": "n8n-nodes-base.emailSend",
+   "typeVersion": 2.1,
+   "position": [
+    780,
+    100
+   ],
+   "parameters": {
+    "fromEmail": "智慧門市 ERP <ryan85217@gmail.com>",
+    "toEmail": "ryan85217@gmail.com",
+    "subject": "={{ $json.subject }}",
+    "emailFormat": "html",
+    "html": "={{ $json.html }}",
+    "options": {}
+   },
+   "credentials": {
+    "smtp": {
+     "name": "SMTP account"
+    }
+   }
+  }
+ ],
+ "connections": {
+  "每天定時": {
+   "main": [
+    [
+     {
+      "node": "取低庫存",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "手動執行": {
+   "main": [
+    [
+     {
+      "node": "取低庫存",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "取低庫存": {
+   "main": [
+    [
+     {
+      "node": "有資料才寄",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "有資料才寄": {
+   "main": [
+    [
+     {
+      "node": "寄 Gmail",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  }
+ },
+ "settings": {
+  "executionOrder": "v1",
+  "timezone": "Asia/Taipei",
+  "saveManualExecutions": true
+ }
+}

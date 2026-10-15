@@ -1,0 +1,176 @@
+{
+ "name": "ERP｜新 POS 報表提醒",
+ "nodes": [
+  {
+   "id": "12912cad-b227-4d31-a325-af3f7091343a",
+   "name": "每天定時",
+   "type": "n8n-nodes-base.scheduleTrigger",
+   "typeVersion": 1.2,
+   "position": [
+    0,
+    0
+   ],
+   "parameters": {
+    "rule": {
+     "interval": [
+      {
+       "field": "cronExpression",
+       "expression": "0 9 * * *"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "1ef87d59-a2e0-4e41-9919-7c109c66bb70",
+   "name": "手動執行",
+   "type": "n8n-nodes-base.webhook",
+   "typeVersion": 2,
+   "position": [
+    0,
+    200
+   ],
+   "parameters": {
+    "httpMethod": "POST",
+    "path": "erp-run-new-reports",
+    "authentication": "headerAuth",
+    "responseMode": "onReceived",
+    "options": {}
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "name": "ERP API token"
+    }
+   },
+   "webhookId": "cf6352a1-f347-435f-ad6d-db3e2dfd8215"
+  },
+  {
+   "id": "73f20c04-0d87-4103-a054-bfd7023e7727",
+   "name": "查雲端新報表",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    260,
+    100
+   ],
+   "parameters": {
+    "url": "https://smart-store-erp.zeabur.app/api/integrations/new-reports?hours=24",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "options": {}
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "name": "ERP API token"
+    }
+   }
+  },
+  {
+   "id": "68208c5c-35c0-4ee0-94d6-a91f2a2bf7cf",
+   "name": "有資料才寄",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2.2,
+   "position": [
+    520,
+    100
+   ],
+   "parameters": {
+    "conditions": {
+     "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "loose",
+      "version": 2
+     },
+     "conditions": [
+      {
+       "id": "66adbc27-9cc4-488c-91df-4d5400645de5",
+       "leftValue": "={{ $json.count }}",
+       "rightValue": 0,
+       "operator": {
+        "type": "number",
+        "operation": "gt"
+       }
+      }
+     ],
+     "combinator": "and"
+    },
+    "options": {}
+   }
+  },
+  {
+   "id": "b89e702d-c780-4968-8233-1f288af735a9",
+   "name": "寄 Gmail",
+   "type": "n8n-nodes-base.emailSend",
+   "typeVersion": 2.1,
+   "position": [
+    780,
+    100
+   ],
+   "parameters": {
+    "fromEmail": "智慧門市 ERP <ryan85217@gmail.com>",
+    "toEmail": "ryan85217@gmail.com",
+    "subject": "={{ $json.subject }}",
+    "emailFormat": "html",
+    "html": "={{ $json.html }}",
+    "options": {}
+   },
+   "credentials": {
+    "smtp": {
+     "name": "SMTP account"
+    }
+   }
+  }
+ ],
+ "connections": {
+  "每天定時": {
+   "main": [
+    [
+     {
+      "node": "查雲端新報表",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "手動執行": {
+   "main": [
+    [
+     {
+      "node": "查雲端新報表",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "查雲端新報表": {
+   "main": [
+    [
+     {
+      "node": "有資料才寄",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "有資料才寄": {
+   "main": [
+    [
+     {
+      "node": "寄 Gmail",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  }
+ },
+ "settings": {
+  "executionOrder": "v1",
+  "timezone": "Asia/Taipei",
+  "saveManualExecutions": true
+ }
+}

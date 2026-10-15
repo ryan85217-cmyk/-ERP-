@@ -94,6 +94,21 @@ npm run dev                     # http://localhost:3000
 
 線上部署（`npm run start:prod`）會比對 `demo-catalog.json` 的指紋，內容有變動時自動重建一次展示資料；`SEED_CATALOG=builtin` 可改回原本 52 項示範商品，`SEED_IF_EMPTY=false` 則完全不動資料。
 
+## 自動化（n8n）
+
+ERP 提供以 `INTEGRATION_TOKEN` 保護的 API（`Authorization: Bearer …`），每支都附上排好版的信件 `subject` / `html`，n8n 只需「取資料 → 寄信」：
+
+| 流程（`n8n/workflows/`） | 觸發 | ERP 端 |
+|---|---|---|
+| 每日低庫存通知 | 每天 08:00，有低庫存才寄 | `GET /api/integrations/low-stock` |
+| 每日營運摘要 | 每天 07:30 | `GET /api/integrations/daily-summary?date=YYYY-MM-DD` |
+| 盤點完成通知 | 盤點結案時 ERP 主動 POST 到 `N8N_COUNT_COMPLETED_WEBHOOK` | `GET /api/integrations/counts/:id` 同內容 |
+| 新 POS 報表提醒 | 每天 09:00，雲端資料夾 24 小時內有新報表才寄 | `GET /api/integrations/new-reports?hours=24`（需 `POS_REPORTS_FOLDER`） |
+
+每個排程流程另有「手動執行」webhook（`/webhook/erp-run-…`，同樣要帶 token）。新報表只寄提醒：真實資料一律在本機匯入。
+
+重建流程：在 n8n 先建好「ERP API token」（Header Auth，`Authorization: Bearer <INTEGRATION_TOKEN>`）與 SMTP 憑證，於 `.env.zeabur.local` 設 `N8N_URL`、`N8N_API_KEY`，再執行 `python3 n8n/build_workflows.py`。
+
 ## 功能模組
 
 ### 1. 商品資訊管理

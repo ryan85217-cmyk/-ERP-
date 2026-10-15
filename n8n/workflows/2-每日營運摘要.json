@@ -1,0 +1,132 @@
+{
+ "name": "ERP｜每日營運摘要",
+ "nodes": [
+  {
+   "id": "01d184ff-6bde-4db0-af86-0da5c04a9468",
+   "name": "每天定時",
+   "type": "n8n-nodes-base.scheduleTrigger",
+   "typeVersion": 1.2,
+   "position": [
+    0,
+    0
+   ],
+   "parameters": {
+    "rule": {
+     "interval": [
+      {
+       "field": "cronExpression",
+       "expression": "30 7 * * *"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "4eb09e30-56af-488a-9ad5-7f0c6ab7dc47",
+   "name": "手動執行",
+   "type": "n8n-nodes-base.webhook",
+   "typeVersion": 2,
+   "position": [
+    0,
+    200
+   ],
+   "parameters": {
+    "httpMethod": "POST",
+    "path": "erp-run-daily-summary",
+    "authentication": "headerAuth",
+    "responseMode": "onReceived",
+    "options": {}
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "name": "ERP API token"
+    }
+   },
+   "webhookId": "ceaa90ce-8c70-40f5-9fe4-d1546a4cc4fa"
+  },
+  {
+   "id": "40cf8c03-4b39-41e6-9373-a50db0fae381",
+   "name": "取昨日摘要",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    260,
+    100
+   ],
+   "parameters": {
+    "url": "https://smart-store-erp.zeabur.app/api/integrations/daily-summary",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "options": {}
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "name": "ERP API token"
+    }
+   }
+  },
+  {
+   "id": "f28d2f90-cab5-4d31-be37-ba07802538a1",
+   "name": "寄 Gmail",
+   "type": "n8n-nodes-base.emailSend",
+   "typeVersion": 2.1,
+   "position": [
+    520,
+    100
+   ],
+   "parameters": {
+    "fromEmail": "智慧門市 ERP <ryan85217@gmail.com>",
+    "toEmail": "ryan85217@gmail.com",
+    "subject": "={{ $json.subject }}",
+    "emailFormat": "html",
+    "html": "={{ $json.html }}",
+    "options": {}
+   },
+   "credentials": {
+    "smtp": {
+     "name": "SMTP account"
+    }
+   }
+  }
+ ],
+ "connections": {
+  "每天定時": {
+   "main": [
+    [
+     {
+      "node": "取昨日摘要",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "手動執行": {
+   "main": [
+    [
+     {
+      "node": "取昨日摘要",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "取昨日摘要": {
+   "main": [
+    [
+     {
+      "node": "寄 Gmail",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  }
+ },
+ "settings": {
+  "executionOrder": "v1",
+  "timezone": "Asia/Taipei",
+  "saveManualExecutions": true
+ }
+}

@@ -1,0 +1,69 @@
+{
+ "name": "ERP｜盤點完成通知",
+ "nodes": [
+  {
+   "id": "ba06f49a-b7f4-4d39-85b0-5ad9c9f9d8b6",
+   "name": "ERP 盤點完成",
+   "type": "n8n-nodes-base.webhook",
+   "typeVersion": 2,
+   "position": [
+    0,
+    0
+   ],
+   "parameters": {
+    "httpMethod": "POST",
+    "path": "erp-count-completed",
+    "authentication": "headerAuth",
+    "responseMode": "onReceived",
+    "options": {}
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "name": "ERP API token"
+    }
+   },
+   "webhookId": "aa53ba07-3247-4b78-9912-77dab2c32a88"
+  },
+  {
+   "id": "f1231256-cf7d-4417-9913-ceccf2425236",
+   "name": "寄 Gmail",
+   "type": "n8n-nodes-base.emailSend",
+   "typeVersion": 2.1,
+   "position": [
+    260,
+    0
+   ],
+   "parameters": {
+    "fromEmail": "智慧門市 ERP <ryan85217@gmail.com>",
+    "toEmail": "ryan85217@gmail.com",
+    "subject": "={{ $json.body.subject }}",
+    "emailFormat": "html",
+    "html": "={{ $json.body.html }}",
+    "options": {}
+   },
+   "credentials": {
+    "smtp": {
+     "name": "SMTP account"
+    }
+   }
+  }
+ ],
+ "connections": {
+  "ERP 盤點完成": {
+   "main": [
+    [
+     {
+      "node": "寄 Gmail",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  }
+ },
+ "settings": {
+  "executionOrder": "v1",
+  "timezone": "Asia/Taipei",
+  "saveManualExecutions": true
+ }
+}
