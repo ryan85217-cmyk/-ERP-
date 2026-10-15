@@ -1,0 +1,225 @@
+{
+ "name": "ERP｜POS 交易即時同步",
+ "nodes": [
+  {
+   "id": "3e8f3bb7-90a0-445a-808f-06ea35f568ee",
+   "name": "每 15 分鐘",
+   "type": "n8n-nodes-base.scheduleTrigger",
+   "typeVersion": 1.2,
+   "position": [
+    0,
+    0
+   ],
+   "parameters": {
+    "rule": {
+     "interval": [
+      {
+       "field": "cronExpression",
+       "expression": "*/15 * * * *"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "1d460d2e-4c51-4de9-bc36-0d4321be6479",
+   "name": "手動執行",
+   "type": "n8n-nodes-base.webhook",
+   "typeVersion": 2,
+   "position": [
+    0,
+    200
+   ],
+   "parameters": {
+    "httpMethod": "POST",
+    "path": "erp-run-pos-sync",
+    "authentication": "headerAuth",
+    "responseMode": "onReceived",
+    "options": {}
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "name": "ERP API token"
+    }
+   },
+   "webhookId": "7e2b71ba-903f-4d1f-a829-8694f87233c7"
+  },
+  {
+   "id": "5267859b-68d6-45f1-bc92-a9b79a0b64cb",
+   "name": "ERP：同步起點",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    260,
+    100
+   ],
+   "parameters": {
+    "method": "GET",
+    "url": "https://smart-store-erp.zeabur.app/api/integrations/pos/cursor",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "options": {}
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "name": "ERP API token"
+    }
+   }
+  },
+  {
+   "id": "29fb1f2c-46bd-4e40-b072-44a2d9239d82",
+   "name": "POS：取交易",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    520,
+    100
+   ],
+   "parameters": {
+    "method": "GET",
+    "url": "https://smart-store-erp.zeabur.app/api/mock-pos/v1/transactions",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "options": {},
+    "sendQuery": true,
+    "queryParameters": {
+     "parameters": [
+      {
+       "name": "since",
+       "value": "={{ $json.since }}"
+      },
+      {
+       "name": "until",
+       "value": "={{ $json.until }}"
+      }
+     ]
+    }
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "name": "ERP API token"
+    }
+   }
+  },
+  {
+   "id": "29a80056-7e5e-4baf-821f-6dd88614f06c",
+   "name": "有新交易",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2.2,
+   "position": [
+    780,
+    100
+   ],
+   "parameters": {
+    "conditions": {
+     "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "loose",
+      "version": 2
+     },
+     "conditions": [
+      {
+       "id": "bc7f4d6a-0774-49b8-b69a-f5f3a0c02d78",
+       "leftValue": "={{ $json.count }}",
+       "rightValue": 0,
+       "operator": {
+        "type": "number",
+        "operation": "gt"
+       }
+      }
+     ],
+     "combinator": "and"
+    },
+    "options": {}
+   }
+  },
+  {
+   "id": "701231b9-7ae8-4cef-941c-1c320ac1f1d5",
+   "name": "ERP：寫入交易",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    1040,
+    100
+   ],
+   "parameters": {
+    "method": "POST",
+    "url": "https://smart-store-erp.zeabur.app/api/integrations/pos/transactions",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "options": {},
+    "sendBody": true,
+    "specifyBody": "json",
+    "jsonBody": "={{ JSON.stringify({ transactions: $json.transactions }) }}"
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "name": "ERP API token"
+    }
+   }
+  }
+ ],
+ "connections": {
+  "每 15 分鐘": {
+   "main": [
+    [
+     {
+      "node": "ERP：同步起點",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "手動執行": {
+   "main": [
+    [
+     {
+      "node": "ERP：同步起點",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "ERP：同步起點": {
+   "main": [
+    [
+     {
+      "node": "POS：取交易",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "POS：取交易": {
+   "main": [
+    [
+     {
+      "node": "有新交易",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "有新交易": {
+   "main": [
+    [
+     {
+      "node": "ERP：寫入交易",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  }
+ },
+ "settings": {
+  "executionOrder": "v1",
+  "timezone": "Asia/Taipei",
+  "saveManualExecutions": true
+ }
+}

@@ -2,7 +2,7 @@
  "name": "ERP｜盤點完成通知",
  "nodes": [
   {
-   "id": "ba06f49a-b7f4-4d39-85b0-5ad9c9f9d8b6",
+   "id": "1d9bd900-d952-4f4e-957f-d75edc490c2e",
    "name": "ERP 盤點完成",
    "type": "n8n-nodes-base.webhook",
    "typeVersion": 2,
@@ -22,10 +22,10 @@
      "name": "ERP API token"
     }
    },
-   "webhookId": "aa53ba07-3247-4b78-9912-77dab2c32a88"
+   "webhookId": "f8a3d267-c3be-467b-8e7f-18b57cdb5d6d"
   },
   {
-   "id": "f1231256-cf7d-4417-9913-ceccf2425236",
+   "id": "0bcd14f2-ac34-4c57-b2a0-702f7b123fbc",
    "name": "寄 Gmail",
    "type": "n8n-nodes-base.emailSend",
    "typeVersion": 2.1,

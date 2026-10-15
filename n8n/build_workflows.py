@@ -10,6 +10,8 @@ by name+id; create them in n8n first: "ERP API token" (Header Auth) and an SMTP 
 import json, os, sys, urllib.request, uuid
 
 ERP = "https://smart-store-erp.zeabur.app/api/integrations"
+# simulated POS vendor API (lives in the ERP app for the demo; swap for the real POS API later)
+POS = "https://smart-store-erp.zeabur.app/api/mock-pos/v1"
 TO = "ryan85217@gmail.com"
 FROM = "智慧門市 ERP <ryan85217@gmail.com>"
 
@@ -74,6 +76,16 @@ def fetch(name, url, c, pos):
         pos,
         c["erp"],
     )
+
+
+def http(name, method, url, c, pos, query=None, json_body=None):
+    params = {"method": method, "url": url, "authentication": "genericCredentialType", "genericAuthType": "httpHeaderAuth", "options": {}}
+    if query:
+        params["sendQuery"] = True
+        params["queryParameters"] = {"parameters": [{"name": k, "value": v} for k, v in query.items()]}
+    if json_body:
+        params.update({"sendBody": True, "specifyBody": "json", "jsonBody": json_body})
+    return node(name, "n8n-nodes-base.httpRequest", 4.2, params, pos, c["erp"])
 
 
 def if_count(pos):
@@ -158,6 +170,32 @@ def workflows(c):
                 email([780, 100], c),
             ],
             "connections": link(("每天定時", "查雲端新報表"), ("手動執行", "查雲端新報表"), ("查雲端新報表", "有資料才寄"), ("有資料才寄", "寄 Gmail")),
+            "settings": SETTINGS,
+        },
+        {
+            "name": "ERP｜POS 交易即時同步",
+            "nodes": [
+                node("每 15 分鐘", "n8n-nodes-base.scheduleTrigger", 1.2, {"rule": {"interval": [{"field": "cronExpression", "expression": "*/15 * * * *"}]}}, [0, 0]),
+                webhook("手動執行", "erp-run-pos-sync", c, [0, 200]),
+                http("ERP：同步起點", "GET", f"{ERP}/pos/cursor", c, [260, 100]),
+                http("POS：取交易", "GET", f"{POS}/transactions", c, [520, 100], query={"since": "={{ $json.since }}", "until": "={{ $json.until }}"}),
+                node(
+                    "有新交易",
+                    "n8n-nodes-base.if",
+                    2.2,
+                    {
+                        "conditions": {
+                            "options": {"caseSensitive": True, "leftValue": "", "typeValidation": "loose", "version": 2},
+                            "conditions": [{"id": str(uuid.uuid4()), "leftValue": "={{ $json.count }}", "rightValue": 0, "operator": {"type": "number", "operation": "gt"}}],
+                            "combinator": "and",
+                        },
+                        "options": {},
+                    },
+                    [780, 100],
+                ),
+                http("ERP：寫入交易", "POST", f"{ERP}/pos/transactions", c, [1040, 100], json_body="={{ JSON.stringify({ transactions: $json.transactions }) }}"),
+            ],
+            "connections": link(("每 15 分鐘", "ERP：同步起點"), ("手動執行", "ERP：同步起點"), ("ERP：同步起點", "POS：取交易"), ("POS：取交易", "有新交易"), ("有新交易", "ERP：寫入交易")),
             "settings": SETTINGS,
         },
     ]

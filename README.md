@@ -104,6 +104,9 @@ ERP 提供以 `INTEGRATION_TOKEN` 保護的 API（`Authorization: Bearer …`）
 | 每日營運摘要 | 每天 07:30 | `GET /api/integrations/daily-summary?date=YYYY-MM-DD` |
 | 盤點完成通知 | 盤點結案時 ERP 主動 POST 到 `N8N_COUNT_COMPLETED_WEBHOOK` | `GET /api/integrations/counts/:id` 同內容 |
 | 新 POS 報表提醒 | 每天 09:00，雲端資料夾 24 小時內有新報表才寄 | `GET /api/integrations/new-reports?hours=24`（需 `POS_REPORTS_FOLDER`） |
+| POS 交易即時同步 | 每 15 分鐘：問 ERP 同步起點 → 向 POS 取交易 → 寫入 ERP | `GET /api/integrations/pos/cursor`、`POST /api/integrations/pos/transactions` |
+
+**模擬 POS API**（`GET /api/mock-pos/v1/transactions?since=ISO&until=ISO`，token 為 `MOCK_POS_TOKEN`，未設定時沿用 `INTEGRATION_TOKEN`）：依營業時段（09–22 點、午晚尖峰、週末較多）產生收銀交易，含會員卡號與付款方式；同一時段永遠回傳相同交易。ERP 接收時以交易編號去重、扣 POS 與門市庫存、更新會員消費與分群。日後換成真實 POS，只需替換 n8n 裡「POS：取交易」這一步（並在 ERP 端對應欄位）。
 
 每個排程流程另有「手動執行」webhook（`/webhook/erp-run-…`，同樣要帶 token）。新報表只寄提醒：真實資料一律在本機匯入。
 

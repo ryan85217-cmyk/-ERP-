@@ -2,7 +2,7 @@
  "name": "ERP｜每日低庫存通知",
  "nodes": [
   {
-   "id": "0235764f-24d1-4570-b651-17826af7d574",
+   "id": "474bc506-0499-4338-84be-5b954b786c80",
    "name": "每天定時",
    "type": "n8n-nodes-base.scheduleTrigger",
    "typeVersion": 1.2,
@@ -22,7 +22,7 @@
    }
   },
   {
-   "id": "697b98fa-3cdf-4627-be67-86bf1ccbdd12",
+   "id": "8ead1e47-111f-4a59-86d7-cc2c05b0125f",
    "name": "手動執行",
    "type": "n8n-nodes-base.webhook",
    "typeVersion": 2,
@@ -42,10 +42,10 @@
      "name": "ERP API token"
     }
    },
-   "webhookId": "a0652542-2d8e-4ae9-9a17-6250aba48bc5"
+   "webhookId": "3e7a11b8-ddc4-41f0-bd68-0212e8e22604"
   },
   {
-   "id": "68a4f870-5e88-45b7-91c2-56db00b59eee",
+   "id": "9139820d-b625-4bfc-9335-86477893065c",
    "name": "取低庫存",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -66,7 +66,7 @@
    }
   },
   {
-   "id": "0d7f3605-cc1d-489e-974e-c9fdfcb4df98",
+   "id": "e7659ad5-9cb6-4b45-94d2-551571e71d79",
    "name": "有資料才寄",
    "type": "n8n-nodes-base.if",
    "typeVersion": 2.2,
@@ -84,7 +84,7 @@
      },
      "conditions": [
       {
-       "id": "a0bba3ee-5d5c-445d-b6dc-75617ca9371f",
+       "id": "309179f0-50e9-4ff3-8d99-0d4c5531dd8b",
        "leftValue": "={{ $json.count }}",
        "rightValue": 0,
        "operator": {
@@ -99,7 +99,7 @@
    }
   },
   {
-   "id": "d099ea63-29a5-4896-85fd-20b9c2009d0c",
+   "id": "2fc22cc8-ae99-4f1d-a498-fe71c7bfa852",
    "name": "寄 Gmail",
    "type": "n8n-nodes-base.emailSend",
    "typeVersion": 2.1,

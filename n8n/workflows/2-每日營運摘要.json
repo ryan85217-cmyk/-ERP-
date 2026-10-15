@@ -2,7 +2,7 @@
  "name": "ERP｜每日營運摘要",
  "nodes": [
   {
-   "id": "01d184ff-6bde-4db0-af86-0da5c04a9468",
+   "id": "b106fbc2-7228-468a-aa39-8e78b86af1c8",
    "name": "每天定時",
    "type": "n8n-nodes-base.scheduleTrigger",
    "typeVersion": 1.2,
@@ -22,7 +22,7 @@
    }
   },
   {
-   "id": "4eb09e30-56af-488a-9ad5-7f0c6ab7dc47",
+   "id": "d0585c19-1866-45e4-88a4-4669a5e09985",
    "name": "手動執行",
    "type": "n8n-nodes-base.webhook",
    "typeVersion": 2,
@@ -42,10 +42,10 @@
      "name": "ERP API token"
     }
    },
-   "webhookId": "ceaa90ce-8c70-40f5-9fe4-d1546a4cc4fa"
+   "webhookId": "82acb72c-0b97-49a6-9bed-f131f58a4b7e"
   },
   {
-   "id": "40cf8c03-4b39-41e6-9373-a50db0fae381",
+   "id": "b4633638-dff9-45df-8a72-ceef1546a9cd",
    "name": "取昨日摘要",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -66,7 +66,7 @@
    }
   },
   {
-   "id": "f28d2f90-cab5-4d31-be37-ba07802538a1",
+   "id": "c1489f8f-eb8d-4dd3-8e7f-05348b570689",
    "name": "寄 Gmail",
    "type": "n8n-nodes-base.emailSend",
    "typeVersion": 2.1,
