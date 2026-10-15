@@ -38,7 +38,8 @@ function assertLocalDatabase() {
 }
 
 async function main() {
-  const mode = process.argv[2];
+  // tolerate stray invisible characters (e.g. a non-breaking space picked up when copy-pasting)
+  const mode = (process.argv[2] ?? "").replace(/[\s\u00a0\u200b-\u200d\ufeff]/g, "").toLowerCase();
   if (mode !== "real" && mode !== "anonymize") {
     console.error("Usage: npm run sheets:import -- <real|anonymize>");
     process.exit(1);

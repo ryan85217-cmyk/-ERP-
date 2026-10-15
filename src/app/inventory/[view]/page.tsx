@@ -9,6 +9,7 @@ import { fmt, localName } from "@/i18n/config";
 import { getI18n } from "@/i18n/server";
 import type { Messages } from "@/i18n/messages";
 import { PageHeader } from "@/components/shared/page-header";
+import { Pagination } from "@/components/shared/pagination";
 import { StatCard } from "@/components/shared/stat-card";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -39,6 +40,8 @@ export async function generateMetadata({ params }: { params: Promise<{ view: str
 
 export const dynamic = "force-dynamic";
 
+const PAGE_SIZE = 50;
+
 export default async function InventoryViewPage({
   params,
   searchParams,
@@ -57,6 +60,7 @@ export default async function InventoryViewPage({
   const category = first(sp.category) ?? "";
   const zone = first(sp.zone) ?? "";
   const flagFilter = (first(sp.flag) ?? (view === "alerts" ? "any" : "")) as StockFlag | "any" | "ok" | "";
+  const requestedPage = Math.max(1, Number(first(sp.page)) || 1);
 
   const [rows, categories] = await Promise.all([
     prisma.inventory.findMany({
@@ -100,6 +104,8 @@ export default async function InventoryViewPage({
       if (view === "alerts") return b.flags.length - a.flags.length || a.storeStock / Math.max(1, a.safetyStock) - b.storeStock / Math.max(1, b.safetyStock);
       return b[cfg.sortKey] - a[cfg.sortKey];
     });
+  const page = Math.min(requestedPage, Math.max(1, Math.ceil(filtered.length / PAGE_SIZE)));
+  const pageRows = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   return (
     <>
@@ -210,7 +216,7 @@ export default async function InventoryViewPage({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filtered.map((r) => {
+              {pageRows.map((r) => {
                 const diff = r.posStock - r.storeStock;
                 const canReplenish = r.flags.includes("low") && r.warehouseStock > 0;
                 const name = localName(locale, r.product);
@@ -285,6 +291,14 @@ export default async function InventoryViewPage({
             </TableBody>
           </Table>
         )}
+        <Pagination
+          page={page}
+          pageSize={PAGE_SIZE}
+          total={filtered.length}
+          basePath={`/inventory/${view}`}
+          // keep the alerts default ("any") out of the URL so it isn't pinned on page 2+
+          params={{ q: q || undefined, category, zone, flag: first(sp.flag) }}
+        />
       </Card>
     </>
   );
