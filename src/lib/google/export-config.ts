@@ -6,6 +6,11 @@ export function exportSheet() {
   return sheet && isSheetsConfigured() ? sheet : null;
 }
 
+/** The dashboard button can be hidden (SHEETS_EXPORT_BUTTON=false), e.g. on a public demo that only exports on schedule. */
+export function exportButtonEnabled() {
+  return process.env.SHEETS_EXPORT_BUTTON !== "false";
+}
+
 export function exportSheetUrl(sheet: string) {
   return sheet.startsWith("http") ? sheet : `https://docs.google.com/spreadsheets/d/${sheet}/edit`;
 }

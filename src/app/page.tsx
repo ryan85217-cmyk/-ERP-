@@ -15,7 +15,7 @@ import {
   Warehouse,
 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { exportSheet, exportSheetUrl } from "@/lib/google/export-config";
+import { exportButtonEnabled, exportSheet, exportSheetUrl } from "@/lib/google/export-config";
 import { SheetsExportButton } from "@/components/shared/sheets-export-button";
 import {
   getCategoryShare,
@@ -146,7 +146,7 @@ export default async function DashboardPage({
   const warehouseTotal = inventory.reduce((a, i) => a + i.warehouseStock, 0);
   const warehouseValue = inventory.reduce((a, i) => a + i.warehouseStock * i.product.price, 0);
 
-  const sheet = exportSheet();
+  const sheet = exportButtonEnabled() ? exportSheet() : null;
 
   return (
     <>
