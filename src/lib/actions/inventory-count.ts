@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import type { VarianceReason } from "@prisma/client";
@@ -9,6 +10,7 @@ import { VARIANCE_REASONS } from "@/lib/constants";
 import { dayKey } from "@/lib/dates";
 import { fmt } from "@/i18n/config";
 import { getI18n } from "@/i18n/server";
+import { notifyCountCompleted } from "@/lib/integrations/notify";
 import { emptyToNull, type FormState } from "./types";
 
 export interface CountItemInput {
@@ -274,6 +276,8 @@ export async function completeCountSession(
         : []),
     ];
     await prisma.$transaction(ops);
+    // notify automation (n8n) after the response, so a slow webhook never delays the user
+    after(() => notifyCountCompleted(id));
     revalidateCount(id);
     revalidatePath("/inventory", "layout");
     revalidatePath("/locations", "layout");

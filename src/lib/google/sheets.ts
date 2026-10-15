@@ -11,7 +11,8 @@
 import { readFileSync } from "node:fs";
 import { GoogleAuth } from "google-auth-library";
 
-const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
+// drive.readonly lets the POS-report watcher list the shared report folder
+const SCOPES = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive.readonly"];
 const API = "https://sheets.googleapis.com/v4/spreadsheets";
 
 interface ServiceAccountKey {
@@ -137,4 +138,29 @@ export async function removeEmptyDefaultSheets(idOrUrl: string) {
       data: { requests: [{ deleteSheet: { sheetId: s.properties.sheetId } }] },
     });
   }
+}
+
+export interface DriveFile {
+  id: string;
+  name: string;
+  mimeType: string;
+  modifiedTime: string;
+  webViewLink: string;
+}
+
+/** Files in a Drive folder modified after `since` (newest first); the folder must be shared with the service account. */
+export async function listFolderFiles(folderId: string, since: Date): Promise<DriveFile[]> {
+  const c = await client();
+  const res = await c.request<{ files: DriveFile[] }>({
+    url: "https://www.googleapis.com/drive/v3/files",
+    params: {
+      q: `'${folderId.replace(/'/g, "")}' in parents and trashed = false and modifiedTime > '${since.toISOString()}'`,
+      fields: "files(id,name,mimeType,modifiedTime,webViewLink)",
+      orderBy: "modifiedTime desc",
+      pageSize: 100,
+      supportsAllDrives: true,
+      includeItemsFromAllDrives: true,
+    },
+  });
+  return res.data.files ?? [];
 }
