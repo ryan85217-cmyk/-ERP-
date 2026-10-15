@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { ChevronDown, Menu, Store, X } from "lucide-react";
 import { NAV, activeHref } from "@/lib/nav";
 import { cn } from "@/lib/utils";
@@ -124,23 +125,26 @@ export function MobileNav() {
       >
         <Menu className="size-4" />
       </button>
-      {open && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
-          <aside className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col bg-sidebar text-sidebar-foreground shadow-xl">
-            <button
-              type="button"
-              aria-label={t.common.closeMenu}
-              onClick={() => setOpen(false)}
-              className="absolute right-3 top-4 text-sidebar-muted hover:text-white"
-            >
-              <X className="size-5" />
-            </button>
-            <Brand />
-            <NavContent onNavigate={() => setOpen(false)} />
-          </aside>
-        </div>
-      )}
+      {/* portal: the topbar's backdrop-blur makes it the containing block for "fixed" children, which would clip the drawer to 64px */}
+      {open &&
+        createPortal(
+          <div className="fixed inset-0 z-50 lg:hidden">
+            <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
+            <aside className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col bg-sidebar text-sidebar-foreground shadow-xl">
+              <button
+                type="button"
+                aria-label={t.common.closeMenu}
+                onClick={() => setOpen(false)}
+                className="absolute right-3 top-4 text-sidebar-muted hover:text-white"
+              >
+                <X className="size-5" />
+              </button>
+              <Brand />
+              <NavContent onNavigate={() => setOpen(false)} />
+            </aside>
+          </div>,
+          document.body,
+        )}
     </>
   );
 }
