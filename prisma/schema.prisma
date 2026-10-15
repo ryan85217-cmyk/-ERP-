@@ -46,6 +46,8 @@ model Product {
   imageUrl      String?
   ingredients   String?
   price         Int
+  /// selling / stock unit as the POS reports it (瓶, 包, 公克…); null = pieces
+  unit          String?
   origin        String?
   supplierId    String?
   supplier      Supplier?            @relation(fields: [supplierId], references: [id], onDelete: SetNull)

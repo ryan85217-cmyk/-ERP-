@@ -27,6 +27,7 @@ export default async function NewProductPage() {
           imageUrl: null,
           ingredients: null,
           price: "",
+          unit: null,
           origin: null,
           recipe: null,
           cookingMethod: null,

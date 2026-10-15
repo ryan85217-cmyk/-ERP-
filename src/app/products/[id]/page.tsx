@@ -216,6 +216,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <CardContent>
               <dl className="divide-y">
                 <InfoRow label={p.category}>{localName(locale, product.category)}</InfoRow>
+                <InfoRow label={p.unit}>{product.unit}</InfoRow>
                 <InfoRow label={p.origin}>{product.origin}</InfoRow>
                 <InfoRow label={t.common.supplier}>
                   {product.supplier ? (

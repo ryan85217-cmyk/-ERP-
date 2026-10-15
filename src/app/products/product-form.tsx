@@ -26,6 +26,7 @@ export interface ProductFormValues {
   imageUrl: string | null;
   ingredients: string | null;
   price: number | "";
+  unit: string | null;
   origin: string | null;
   recipe: string | null;
   cookingMethod: string | null;
@@ -107,6 +108,9 @@ export function ProductForm({
                   </option>
                 ))}
               </Select>
+            </FormField>
+            <FormField label={p.unit} htmlFor="unit" error={fe.unit}>
+              <Input id="unit" name="unit" maxLength={10} defaultValue={initial.unit ?? ""} placeholder={p.unitPlaceholder} />
             </FormField>
             <FormField label={p.origin} htmlFor="origin" error={fe.origin}>
               <Input id="origin" name="origin" defaultValue={initial.origin ?? ""} placeholder={p.originPlaceholder} />

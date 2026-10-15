@@ -21,6 +21,11 @@ export function formatNumber(value: number | null | undefined) {
   return numberFmt.format(value ?? 0);
 }
 
+/** "1,234 公克" when the product has a unit, otherwise the localized pieces template ("{n} 件"). */
+export function formatQty(value: number, unit: string | null | undefined, piecesTemplate: string) {
+  return unit ? `${formatNumber(value)} ${unit}` : piecesTemplate.replace("{n}", formatNumber(value));
+}
+
 export function formatCompactCurrency(value: number) {
   if (Math.abs(value) >= 1_000_000) return `$${(value / 1_000_000).toFixed(1)}M`;
   if (Math.abs(value) >= 1_000) return `$${(value / 1_000).toFixed(0)}K`;

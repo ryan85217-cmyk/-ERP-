@@ -167,6 +167,7 @@ export default async function CountSessionPage({ params }: { params: Promise<{ i
           locationCode: i.locationCode,
           locationType: i.location ? t.enums.locationType[i.location.type] : null,
           posQty: i.posQty,
+          unit: i.product.unit,
           actualQty: i.actualQty,
           reason: i.reason,
           note: i.note,

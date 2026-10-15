@@ -16,6 +16,8 @@ export interface Catalog {
     /** must match a category name */
     category: string;
     price: number;
+    /** stock unit, e.g. 瓶 / 包 / 公克; null = pieces */
+    unit?: string | null;
     /** must match a location code; null = no location */
     locationCode: string | null;
     /** on-hand quantity; null lets the generator invent one */

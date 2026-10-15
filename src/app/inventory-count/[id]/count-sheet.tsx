@@ -43,6 +43,8 @@ export interface SheetItem {
   locationCode: string | null;
   locationType: string | null;
   posQty: number;
+  /** stock unit (瓶, 公克…); null = pieces */
+  unit: string | null;
   actualQty: number | null;
   reason: VarianceReason | null;
   note: string | null;
@@ -395,7 +397,7 @@ export function CountSheet({ sessionId, status, items }: { sessionId: string; st
                   </div>
                   <div className="flex items-end gap-3">
                     <div className="w-14 shrink-0">
-                      <div className="text-[11px] text-muted-foreground">POS</div>
+                      <div className="truncate text-[11px] text-muted-foreground">POS{r.unit && ` · ${r.unit}`}</div>
                       <div className="text-lg font-semibold tabular-nums">{r.posQty}</div>
                     </div>
                     <div className="min-w-0 flex-1">
@@ -539,6 +541,7 @@ export function CountSheet({ sessionId, status, items }: { sessionId: string; st
                             <div className="truncate font-medium">{r.productName}</div>
                             <div className="text-xs text-muted-foreground">
                               <span className="font-mono">{r.sku}</span> · {r.categoryName}
+                              {r.unit && <> · {r.unit}</>}
                             </div>
                           </div>
                         </div>

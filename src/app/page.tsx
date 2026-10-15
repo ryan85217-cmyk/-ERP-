@@ -40,7 +40,7 @@ import {
 } from "@/lib/dates";
 import { stockFlags } from "@/lib/inventory";
 import { locationStats } from "@/lib/locations";
-import { first, formatCurrency, formatNumber, formatPercent } from "@/lib/utils";
+import { first, formatCurrency, formatNumber, formatPercent, formatQty } from "@/lib/utils";
 import { fmt, localName } from "@/i18n/config";
 import { getI18n, pageTitle } from "@/i18n/server";
 import { PageHeader } from "@/components/shared/page-header";
@@ -396,7 +396,7 @@ export default async function DashboardPage({
           href="/inventory/alerts?flag=high"
           emptyText={d.noAlerts}
           moreText={t.common.viewAll}
-          rows={high.slice(0, 5).map((i) => ({ href: `/products/${i.productId}`, name: name(i.product), value: fmt(t.common.pieces, { n: i.storeStock }) }))}
+          rows={high.slice(0, 5).map((i) => ({ href: `/products/${i.productId}`, name: name(i.product), value: formatQty(i.storeStock, i.product.unit, t.common.pieces) }))}
         />
         <InventoryWidget
           title={d.locationOver}

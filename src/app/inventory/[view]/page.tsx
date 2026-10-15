@@ -229,6 +229,7 @@ export default async function InventoryViewPage({
                           <div className="truncate font-medium hover:underline">{name}</div>
                           <div className="text-xs text-muted-foreground">
                             <span className="font-mono">{r.product.sku}</span> · {localName(locale, r.product.category)}
+                            {r.product.unit && <> · {r.product.unit}</>}
                           </div>
                         </div>
                       </Link>

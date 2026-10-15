@@ -266,7 +266,7 @@ export function generateSeedData(now: Date = new Date(), catalog?: Catalog) {
     aisle: number;
     level: number;
     type: LocationType;
-    capacity: number;
+    capacity: number | null;
     sortOrder: number;
     note: string | null;
     isActive: boolean;
@@ -282,6 +282,7 @@ export function generateSeedData(now: Date = new Date(), catalog?: Catalog) {
     imageUrl: string | null;
     ingredients: string | null;
     price: number;
+    unit: string | null;
     origin: string | null;
     supplierId: string | null;
     recipe: string | null;
@@ -350,6 +351,7 @@ export function generateSeedData(now: Date = new Date(), catalog?: Catalog) {
         imageUrl: null,
         ingredients: p.ingredients,
         price: p.price,
+        unit: null,
         origin: p.origin,
         supplierId: suppliers[p.sup].id,
         recipe: p.recipe ?? null,
@@ -371,7 +373,6 @@ export function generateSeedData(now: Date = new Date(), catalog?: Catalog) {
       sortOrder: i,
     }));
     const catId = new Map(categories.map((c) => [c.name, c.id]));
-    const capacityByType: Record<LocationType, number> = { SHELF: 160, DISPLAY: 120, CHILLED: 100, FROZEN: 90, BACKROOM: 500 };
     const zoneOrder = Array.from(new Set(catalog.locations.map((l) => l.zone))).sort();
     for (const l of catalog.locations) {
       locations.push({
@@ -381,7 +382,8 @@ export function generateSeedData(now: Date = new Date(), catalog?: Catalog) {
         aisle: l.aisle,
         level: l.level,
         type: l.type,
-        capacity: capacityByType[l.type],
+        // POS shelf codes are whole bays, not single slots, and reports carry no capacity
+        capacity: null,
         sortOrder: zoneOrder.indexOf(l.zone) * 10_000 + l.aisle * 100 + l.level,
         note: l.note ?? null,
         isActive: true,
@@ -405,6 +407,7 @@ export function generateSeedData(now: Date = new Date(), catalog?: Catalog) {
         imageUrl: null,
         ingredients: null,
         price: p.price,
+        unit: p.unit ?? null,
         origin: null,
         supplierId: null,
         recipe: null,
