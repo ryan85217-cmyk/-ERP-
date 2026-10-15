@@ -1,0 +1,3239 @@
+{
+ "source": "POS stock report, anonymized sample",
+ "categories": [
+  {
+   "name": "安心蔬果",
+   "nameEn": "Fresh Produce",
+   "nameJa": "青果"
+  },
+  {
+   "name": "米麵/調理食材",
+   "nameEn": "Rice, Noodles & Cooking",
+   "nameJa": "米・麺・調理食材"
+  },
+  {
+   "name": "即食料理/糕點",
+   "nameEn": "Ready Meals & Bakery",
+   "nameJa": "惣菜・菓子"
+  },
+  {
+   "name": "飲品/零食",
+   "nameEn": "Drinks & Snacks",
+   "nameJa": "飲料・スナック"
+  },
+  {
+   "name": "養身保健",
+   "nameEn": "Health & Wellness",
+   "nameJa": "健康食品"
+  },
+  {
+   "name": "居家日用",
+   "nameEn": "Household",
+   "nameJa": "日用品"
+  },
+  {
+   "name": "個人清潔保養",
+   "nameEn": "Personal Care",
+   "nameJa": "パーソナルケア"
+  },
+  {
+   "name": "衣飾鞋包",
+   "nameEn": "Apparel & Accessories",
+   "nameJa": "衣料・服飾雑貨"
+  },
+  {
+   "name": "圖書/宗教文物",
+   "nameEn": "Books & Religious Items",
+   "nameJa": "書籍・宗教用品"
+  },
+  {
+   "name": "寵物食品",
+   "nameEn": "Pet Food",
+   "nameJa": "ペットフード"
+  },
+  {
+   "name": "寵物用品",
+   "nameEn": "Pet Supplies",
+   "nameJa": "ペット用品"
+  },
+  {
+   "name": "其他",
+   "nameEn": "Other",
+   "nameJa": "その他"
+  }
+ ],
+ "locations": [
+  {
+   "code": "A-01-01",
+   "zone": "A",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "A-02-01",
+   "zone": "A",
+   "aisle": 2,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "A-03-01",
+   "zone": "A",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "A-04-01",
+   "zone": "A",
+   "aisle": 4,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "B-01-01",
+   "zone": "B",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "B-02-01",
+   "zone": "B",
+   "aisle": 2,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "B-03-01",
+   "zone": "B",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "B-04-01",
+   "zone": "B",
+   "aisle": 4,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "C-03-01",
+   "zone": "C",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "C-04-01",
+   "zone": "C",
+   "aisle": 4,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "D-01-01",
+   "zone": "D",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "D-02-01",
+   "zone": "D",
+   "aisle": 2,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "D-04-01",
+   "zone": "D",
+   "aisle": 4,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "E-01-01",
+   "zone": "E",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "E-02-01",
+   "zone": "E",
+   "aisle": 2,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "E-03-01",
+   "zone": "E",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "E-04-01",
+   "zone": "E",
+   "aisle": 4,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "F-01-01",
+   "zone": "F",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "F-02-01",
+   "zone": "F",
+   "aisle": 2,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "F-04-01",
+   "zone": "F",
+   "aisle": 4,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "G-02-01",
+   "zone": "G",
+   "aisle": 2,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "G-03-01",
+   "zone": "G",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "G-04-01",
+   "zone": "G",
+   "aisle": 4,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "H-01-01",
+   "zone": "H",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "H-02-01",
+   "zone": "H",
+   "aisle": 2,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "H-03-01",
+   "zone": "H",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "H-04-01",
+   "zone": "H",
+   "aisle": 4,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "I-01-01",
+   "zone": "I",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "I-02-01",
+   "zone": "I",
+   "aisle": 2,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "I-04-01",
+   "zone": "I",
+   "aisle": 4,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "J-01-01",
+   "zone": "J",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "J-02-01",
+   "zone": "J",
+   "aisle": 2,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "J-03-01",
+   "zone": "J",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "J-04-01",
+   "zone": "J",
+   "aisle": 4,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "K-01-01",
+   "zone": "K",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "K-03-01",
+   "zone": "K",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "K-04-01",
+   "zone": "K",
+   "aisle": 4,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "L-02-01",
+   "zone": "L",
+   "aisle": 2,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "L-03-01",
+   "zone": "L",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "L-04-01",
+   "zone": "L",
+   "aisle": 4,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "L-05-01",
+   "zone": "L",
+   "aisle": 5,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "L-07-01",
+   "zone": "L",
+   "aisle": 7,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "M-01-01",
+   "zone": "M",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "M-02-01",
+   "zone": "M",
+   "aisle": 2,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "M-03-01",
+   "zone": "M",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "M-05-01",
+   "zone": "M",
+   "aisle": 5,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "M-06-01",
+   "zone": "M",
+   "aisle": 6,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "N-01-01",
+   "zone": "N",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "N-02-01",
+   "zone": "N",
+   "aisle": 2,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "N-03-01",
+   "zone": "N",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "N-04-01",
+   "zone": "N",
+   "aisle": 4,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "O-01-01",
+   "zone": "O",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "O-02-01",
+   "zone": "O",
+   "aisle": 2,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "O-03-01",
+   "zone": "O",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "O-04-01",
+   "zone": "O",
+   "aisle": 4,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "O-06-01",
+   "zone": "O",
+   "aisle": 6,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "O-08-01",
+   "zone": "O",
+   "aisle": 8,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "P-01-01",
+   "zone": "P",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "P-02-01",
+   "zone": "P",
+   "aisle": 2,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "P-03-01",
+   "zone": "P",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "Q-01-01",
+   "zone": "Q",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "Q-03-01",
+   "zone": "Q",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "R-00-01",
+   "zone": "R",
+   "aisle": 0,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "R-01-02",
+   "zone": "R",
+   "aisle": 1,
+   "level": 2,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "R-01-04",
+   "zone": "R",
+   "aisle": 1,
+   "level": 4,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "R-02-02",
+   "zone": "R",
+   "aisle": 2,
+   "level": 2,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "R-02-04",
+   "zone": "R",
+   "aisle": 2,
+   "level": 4,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "R-02-05",
+   "zone": "R",
+   "aisle": 2,
+   "level": 5,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "R-03-01",
+   "zone": "R",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "R-03-03",
+   "zone": "R",
+   "aisle": 3,
+   "level": 3,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "R-03-04",
+   "zone": "R",
+   "aisle": 3,
+   "level": 4,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "R-04-03",
+   "zone": "R",
+   "aisle": 4,
+   "level": 3,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "R-04-04",
+   "zone": "R",
+   "aisle": 4,
+   "level": 4,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "R-05-01",
+   "zone": "R",
+   "aisle": 5,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "R-05-02",
+   "zone": "R",
+   "aisle": 5,
+   "level": 2,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "R-06-01",
+   "zone": "R",
+   "aisle": 6,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "R-06-02",
+   "zone": "R",
+   "aisle": 6,
+   "level": 2,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "S-00-01",
+   "zone": "S",
+   "aisle": 0,
+   "level": 1,
+   "type": "CHILLED",
+   "note": null
+  },
+  {
+   "code": "S-01-01",
+   "zone": "S",
+   "aisle": 1,
+   "level": 1,
+   "type": "CHILLED",
+   "note": null
+  },
+  {
+   "code": "S-02-01",
+   "zone": "S",
+   "aisle": 2,
+   "level": 1,
+   "type": "CHILLED",
+   "note": null
+  },
+  {
+   "code": "S-03-01",
+   "zone": "S",
+   "aisle": 3,
+   "level": 1,
+   "type": "CHILLED",
+   "note": null
+  },
+  {
+   "code": "X-01-01",
+   "zone": "X",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "Z-01-01",
+   "zone": "Z",
+   "aisle": 1,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "Z-02-01",
+   "zone": "Z",
+   "aisle": 2,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "Z-03-01",
+   "zone": "Z",
+   "aisle": 3,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "Z-04-01",
+   "zone": "Z",
+   "aisle": 4,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "Z-05-01",
+   "zone": "Z",
+   "aisle": 5,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "Z-06-01",
+   "zone": "Z",
+   "aisle": 6,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "Z-07-01",
+   "zone": "Z",
+   "aisle": 7,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  },
+  {
+   "code": "Z-08-01",
+   "zone": "Z",
+   "aisle": 8,
+   "level": 1,
+   "type": "SHELF",
+   "note": null
+  }
+ ],
+ "products": [
+  {
+   "sku": "HOM-0001",
+   "name": "蘆薈手工皂100公克(芙玉寶)",
+   "category": "個人清潔保養",
+   "price": 70,
+   "unit": "個",
+   "locationCode": "M-03-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "HOM-0002",
+   "name": "養護洗髮皂80公克(芙玉寶)",
+   "category": "個人清潔保養",
+   "price": 155,
+   "unit": "個",
+   "locationCode": "P-01-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "HOM-0003",
+   "name": "平衡洗髮皂80公克(芙玉寶)",
+   "category": "個人清潔保養",
+   "price": 170,
+   "unit": "個",
+   "locationCode": "P-01-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "HOM-0004",
+   "name": "健髮洗髮精500公克(永佳)",
+   "category": "個人清潔保養",
+   "price": 470,
+   "unit": "瓶",
+   "locationCode": "P-01-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "HOM-0005",
+   "name": "人蔘養護植萃洗髮精500公克(日光明)",
+   "category": "個人清潔保養",
+   "price": 620,
+   "unit": "瓶",
+   "locationCode": "P-01-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "HOM-0006",
+   "name": "3in1洗髮潔膚粉50公克(永佳)",
+   "category": "個人清潔保養",
+   "price": 600,
+   "unit": "瓶",
+   "locationCode": "M-03-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "HOM-0007",
+   "name": "深層淨化潔顏慕絲180毫升(永佳)",
+   "category": "個人清潔保養",
+   "price": 465,
+   "unit": "瓶",
+   "locationCode": "P-02-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "HOM-0008",
+   "name": "LHAMO蘭茉有機精油護墊(18cm)(馥聚)",
+   "category": "個人清潔保養",
+   "price": 160,
+   "unit": "盒",
+   "locationCode": "N-02-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "HOM-0009",
+   "name": "絲絨唇膏#463珊瑚桃3.5公克(賦凝香)",
+   "category": "個人清潔保養",
+   "price": 850,
+   "unit": "條",
+   "locationCode": "P-03-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "HOM-0010",
+   "name": "紫根護唇膏4.2公克(是綠)",
+   "category": "個人清潔保養",
+   "price": 130,
+   "unit": "條",
+   "locationCode": "P-03-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "HOM-0011",
+   "name": "純自然護唇膏-柑橘檸檬4.25公克(佳潤)",
+   "category": "個人清潔保養",
+   "price": 120,
+   "unit": "條",
+   "locationCode": "P-03-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "HOM-0012",
+   "name": "潤彩護唇膏(紅01)3公克(慶生堂)",
+   "category": "個人清潔保養",
+   "price": 195,
+   "unit": "枝",
+   "locationCode": "P-03-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "HOM-0013",
+   "name": "Radico草本髮絲增色粉-自然黑100公克(台侑)",
+   "category": "個人清潔保養",
+   "price": 410,
+   "unit": "盒",
+   "locationCode": "M-02-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "HOM-0014",
+   "name": "賦活保濕面膜125毫升(永佳)",
+   "category": "個人清潔保養",
+   "price": 500,
+   "unit": "盒",
+   "locationCode": "P-02-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "HOM-0015",
+   "name": "玫瑰賦活精華液30毫升(永佳)",
+   "category": "個人清潔保養",
+   "price": 1090,
+   "unit": "瓶",
+   "locationCode": "P-02-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "HOM-0016",
+   "name": "紫根精華油30毫升(是綠)",
+   "category": "個人清潔保養",
+   "price": 615,
+   "unit": "瓶",
+   "locationCode": "P-03-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "HOM-0017",
+   "name": "沙棘多元修護精華30毫升(日光明)",
+   "category": "個人清潔保養",
+   "price": 1025,
+   "unit": "瓶",
+   "locationCode": "P-02-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "OTH-0001",
+   "name": "為美紅寬底提袋",
+   "category": "其他",
+   "price": 20,
+   "unit": "個",
+   "locationCode": "X-01-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "OTH-0002",
+   "name": "霧面紅色中提袋",
+   "category": "其他",
+   "price": 20,
+   "unit": "個",
+   "locationCode": "X-01-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "OTH-0003",
+   "name": "橫式牡丹袖套(大)(虹揚)",
+   "category": "其他",
+   "price": 295,
+   "unit": "張",
+   "locationCode": "X-01-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "OTH-0004",
+   "name": "小提袋-銀杏粉紅(芷岱)",
+   "category": "其他",
+   "price": 15,
+   "unit": "個",
+   "locationCode": "X-01-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "FOD-0001",
+   "name": "麻油當歸細麵800公克(承昌)",
+   "category": "即食料理/糕點",
+   "price": 295,
+   "unit": "包",
+   "locationCode": "B-04-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0002",
+   "name": "麻油當歸沖泡麵100公克(承昌)",
+   "category": "即食料理/糕點",
+   "price": 40,
+   "unit": "包",
+   "locationCode": "C-04-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0003",
+   "name": "叻沙乾拌麵93公克(興霖)",
+   "category": "即食料理/糕點",
+   "price": 35,
+   "unit": "包",
+   "locationCode": "C-04-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0004",
+   "name": "爆汁生煎包500公克(質好日子)",
+   "category": "即食料理/糕點",
+   "price": 355,
+   "unit": "包",
+   "locationCode": "R-03-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0005",
+   "name": "香椿花捲338公克(天天如意)",
+   "category": "即食料理/糕點",
+   "price": 80,
+   "unit": "包",
+   "locationCode": "R-03-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0006",
+   "name": "白饅頭(無加糖)678公克(瑞鴻)",
+   "category": "即食料理/糕點",
+   "price": 120,
+   "unit": "包",
+   "locationCode": "R-03-04",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0007",
+   "name": "草莓奶香貝果345公克(中子文化(好丘))",
+   "category": "即食料理/糕點",
+   "price": 220,
+   "unit": "袋",
+   "locationCode": "R-03-03",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "FOD-0008",
+   "name": "芋頭酥60公克(餐御宴)",
+   "category": "即食料理/糕點",
+   "price": 80,
+   "unit": "顆",
+   "locationCode": "Q-03-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "FOD-0009",
+   "name": "蜜汁叉燒酥240公克(檀成)",
+   "category": "即食料理/糕點",
+   "price": 315,
+   "unit": "盒",
+   "locationCode": "R-01-02",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "FOD-0010",
+   "name": "薑黃素炒飯275g(桂冠)",
+   "category": "即食料理/糕點",
+   "price": 75,
+   "unit": "盒",
+   "locationCode": "R-02-04",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0011",
+   "name": "家傳紅燒湯1000公克(好品味)",
+   "category": "即食料理/糕點",
+   "price": 235,
+   "unit": "包",
+   "locationCode": "B-04-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0012",
+   "name": "素鬆-原味300g(弘陽生技)",
+   "category": "即食料理/糕點",
+   "price": 110,
+   "unit": "包",
+   "locationCode": "E-03-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0013",
+   "name": "有機嫩豆花800g(立菽)NM",
+   "category": "即食料理/糕點",
+   "price": 90,
+   "unit": "盒",
+   "locationCode": "R-06-02",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0014",
+   "name": "有機嫩豆花190g(立菽)NM",
+   "category": "即食料理/糕點",
+   "price": 35,
+   "unit": "盒",
+   "locationCode": "R-06-02",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0015",
+   "name": "香滷豆干400g(立菽)NM",
+   "category": "即食料理/糕點",
+   "price": 75,
+   "unit": "盒",
+   "locationCode": "R-06-02",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0016",
+   "name": "薑絲醋腸250公克(揚明)",
+   "category": "即食料理/糕點",
+   "price": 180,
+   "unit": "盒",
+   "locationCode": "R-04-04",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0017",
+   "name": "脆花瓜170公克(明德)",
+   "category": "即食料理/糕點",
+   "price": 105,
+   "unit": "瓶",
+   "locationCode": "B-01-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0018",
+   "name": "有機玉米粒220公克(青葉)",
+   "category": "即食料理/糕點",
+   "price": 70,
+   "unit": "罐",
+   "locationCode": "F-02-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0019",
+   "name": "古釀破布子375公克(味榮)",
+   "category": "即食料理/糕點",
+   "price": 200,
+   "unit": "罐",
+   "locationCode": "B-01-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0020",
+   "name": "雪蓮子麵筋170公克(青葉)",
+   "category": "即食料理/糕點",
+   "price": 35,
+   "unit": "罐",
+   "locationCode": "F-02-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0021",
+   "name": "有機綜合菇150公克(青葉)",
+   "category": "即食料理/糕點",
+   "price": 60,
+   "unit": "罐",
+   "locationCode": "F-02-01",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0022",
+   "name": "紅豆湯250公克(青葉)",
+   "category": "即食料理/糕點",
+   "price": 30,
+   "unit": "罐",
+   "locationCode": "O-04-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0023",
+   "name": "有機紅薏仁綠豆湯禮盒320gx12入(春喬)",
+   "category": "即食料理/糕點",
+   "price": 465,
+   "unit": "盒",
+   "locationCode": "O-08-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0024",
+   "name": "元氣納豆168公克(圓金)",
+   "category": "即食料理/糕點",
+   "price": 95,
+   "unit": "組",
+   "locationCode": "R-02-02",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "BOK-0001",
+   "name": "酥油粒專用玻璃杯-68g",
+   "category": "圖書/宗教文物",
+   "price": 15,
+   "unit": "個",
+   "locationCode": "M-01-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "BOK-0002",
+   "name": "純蠟燭LED燈(小黃)(弘麒)",
+   "category": "圖書/宗教文物",
+   "price": 315,
+   "unit": "盒",
+   "locationCode": "M-01-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "BOK-0003",
+   "name": "悲智香-星洲沉香(微盤)(妙香行)",
+   "category": "圖書/宗教文物",
+   "price": 345,
+   "unit": "盒",
+   "locationCode": "L-02-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "BOK-0004",
+   "name": "般若香-純沉香(24H香環)(臻品香)",
+   "category": "圖書/宗教文物",
+   "price": 385,
+   "unit": "盒",
+   "locationCode": "L-02-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "BOK-0005",
+   "name": "悲智香-珍品沉香-7寸臥(妙香行)",
+   "category": "圖書/宗教文物",
+   "price": 2525,
+   "unit": "盒",
+   "locationCode": "L-02-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "BOK-0006",
+   "name": "凡云香-檀香-立香1尺3(凡云)",
+   "category": "圖書/宗教文物",
+   "price": 265,
+   "unit": "盒",
+   "locationCode": "M-01-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "BOK-0007",
+   "name": "般若香-純沉香【尺三立香】(臻品香)",
+   "category": "圖書/宗教文物",
+   "price": 465,
+   "unit": "盒",
+   "locationCode": "M-01-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "AGR-0001",
+   "name": "有機小白菜",
+   "category": "安心蔬果",
+   "price": 390,
+   "unit": "公克",
+   "locationCode": "S-00-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "AGR-0002",
+   "name": "有機小松菜",
+   "category": "安心蔬果",
+   "price": 270,
+   "unit": "公克",
+   "locationCode": "S-00-01",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "AGR-0003",
+   "name": "有機秀珍菜",
+   "category": "安心蔬果",
+   "price": 60,
+   "unit": "公克",
+   "locationCode": "S-00-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "AGR-0004",
+   "name": "有機馬鈴薯",
+   "category": "安心蔬果",
+   "price": 185,
+   "unit": "公克",
+   "locationCode": "S-01-01",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "AGR-0005",
+   "name": "有機紫蘆筍",
+   "category": "安心蔬果",
+   "price": 10,
+   "unit": "公克",
+   "locationCode": "S-02-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "AGR-0006",
+   "name": "有機茭白筍",
+   "category": "安心蔬果",
+   "price": 105,
+   "unit": "公克",
+   "locationCode": "S-01-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "AGR-0007",
+   "name": "有機黃秋葵",
+   "category": "安心蔬果",
+   "price": 160,
+   "unit": "公克",
+   "locationCode": "S-03-01",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "AGR-0008",
+   "name": "黃豆芽270-安心",
+   "category": "安心蔬果",
+   "price": 50,
+   "unit": "盒",
+   "locationCode": "S-02-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "AGR-0009",
+   "name": "有機杏鮑菇 250g",
+   "category": "安心蔬果",
+   "price": 65,
+   "unit": "盒",
+   "locationCode": "S-02-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "PET-0001",
+   "name": "田裡有貓砂2.2公斤(吉祥光)",
+   "category": "寵物用品",
+   "price": 240,
+   "unit": "包",
+   "locationCode": "N-02-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "PET-0002",
+   "name": "可堆肥分解狗便袋(謙益)",
+   "category": "寵物用品",
+   "price": 115,
+   "unit": "盒",
+   "locationCode": "N-02-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "PET-0003",
+   "name": "益生菌-犬貓通用60公克(福鶴惠寶)",
+   "category": "寵物食品",
+   "price": 560,
+   "unit": "盒",
+   "locationCode": "N-02-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "PET-0004",
+   "name": "藻油滴劑-皮膚毛髮強化30毫升(福鶴惠寶)",
+   "category": "寵物食品",
+   "price": 660,
+   "unit": "瓶",
+   "locationCode": "N-02-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "PET-0005",
+   "name": "貓用排毛粉50公克(福鶴惠寶)",
+   "category": "寵物食品",
+   "price": 210,
+   "unit": "瓶",
+   "locationCode": "N-02-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "HOM-0018",
+   "name": "苦茶粉300公克(金椿)",
+   "category": "居家日用",
+   "price": 125,
+   "unit": "包",
+   "locationCode": "M-05-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "HOM-0019",
+   "name": "水晶肥皂洗衣用液体(補充包)檸檬香茅1400公克(華強用品)",
+   "category": "居家日用",
+   "price": 195,
+   "unit": "包",
+   "locationCode": "N-04-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "HOM-0020",
+   "name": "全酵酵素洗衣精1000ml(多益得)",
+   "category": "居家日用",
+   "price": 205,
+   "unit": "瓶",
+   "locationCode": "N-04-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "HOM-0021",
+   "name": "活力淨浴廁清潔劑480毫升(綠宣)",
+   "category": "居家日用",
+   "price": 125,
+   "unit": "瓶",
+   "locationCode": "M-06-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "HOM-0022",
+   "name": "DE黑雲杉精油15毫升(馥聚)",
+   "category": "居家日用",
+   "price": 665,
+   "unit": "瓶",
+   "locationCode": "P-03-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "HOM-0023",
+   "name": "DE檸檬精油15毫升(馥聚)",
+   "category": "居家日用",
+   "price": 470,
+   "unit": "瓶",
+   "locationCode": "P-03-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "HOM-0024",
+   "name": "矽密咖啡杯2.0藍(仁舟)",
+   "category": "居家日用",
+   "price": 565,
+   "unit": "盒",
+   "locationCode": "N-02-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "HOM-0025",
+   "name": "矽密袋2.0莓果藍1公升(仁舟)",
+   "category": "居家日用",
+   "price": 435,
+   "unit": "盒",
+   "locationCode": "N-02-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "HOM-0026",
+   "name": "矽密袋2.0雪酪白1公升(仁舟)",
+   "category": "居家日用",
+   "price": 445,
+   "unit": "盒",
+   "locationCode": "N-02-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "HOM-0027",
+   "name": "捲捲矽水瓶3.0森綠1000ml(仁舟)",
+   "category": "居家日用",
+   "price": 1025,
+   "unit": "盒",
+   "locationCode": "N-03-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "HOM-0028",
+   "name": "竹炭包-500g(佩存)",
+   "category": "居家日用",
+   "price": 225,
+   "unit": "包",
+   "locationCode": "N-01-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "HOM-0029",
+   "name": "奔騰草原蠟擺飾(大)-犀牛(馥聚)",
+   "category": "居家日用",
+   "price": 640,
+   "unit": "個",
+   "locationCode": "Q-03-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "HOM-0030",
+   "name": "光影蠟雕杯-圓圈(馥聚)",
+   "category": "居家日用",
+   "price": 430,
+   "unit": "個",
+   "locationCode": "N-01-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0025",
+   "name": "有機白米3kg3公斤(東豐拾穗)",
+   "category": "米麵/調理食材",
+   "price": 400,
+   "unit": "包",
+   "locationCode": "E-04-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0026",
+   "name": "有機香米2kg-免(禾魚)NS",
+   "category": "米麵/調理食材",
+   "price": 295,
+   "unit": "包",
+   "locationCode": "E-04-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0027",
+   "name": "有機胚芽米3公斤(東豐拾穗)",
+   "category": "米麵/調理食材",
+   "price": 435,
+   "unit": "包",
+   "locationCode": "Q-03-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0028",
+   "name": "有機三寶米1.5公斤(民豐游建富)",
+   "category": "米麵/調理食材",
+   "price": 210,
+   "unit": "包",
+   "locationCode": "G-04-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0029",
+   "name": "有機小米(梗小米)500公克(簡單生活)",
+   "category": "米麵/調理食材",
+   "price": 135,
+   "unit": "包",
+   "locationCode": "D-02-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0030",
+   "name": "台灣糯小米300公克(率馬)",
+   "category": "米麵/調理食材",
+   "price": 305,
+   "unit": "包",
+   "locationCode": "D-02-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0031",
+   "name": "台灣紅藜(帶殼)150公克(率馬)",
+   "category": "米麵/調理食材",
+   "price": 145,
+   "unit": "包",
+   "locationCode": "D-02-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0032",
+   "name": "有機長壽麵250g(三風)",
+   "category": "米麵/調理食材",
+   "price": 80,
+   "unit": "包",
+   "locationCode": "C-04-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0033",
+   "name": "糙米米粉200g(源順)",
+   "category": "米麵/調理食材",
+   "price": 90,
+   "unit": "包",
+   "locationCode": "D-04-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0034",
+   "name": "五木銀絲400g(興霖)",
+   "category": "米麵/調理食材",
+   "price": 40,
+   "unit": "包",
+   "locationCode": "C-04-01",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0035",
+   "name": "紅麵線250公克(宏廣)",
+   "category": "米麵/調理食材",
+   "price": 35,
+   "unit": "包",
+   "locationCode": "C-04-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0036",
+   "name": "Pasta義大利麵500公克(聯華)",
+   "category": "米麵/調理食材",
+   "price": 65,
+   "unit": "包",
+   "locationCode": "C-03-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0037",
+   "name": "多穀麵450公克(麵本家)",
+   "category": "米麵/調理食材",
+   "price": 80,
+   "unit": "包",
+   "locationCode": "C-03-01",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0038",
+   "name": "高纖植物蛋白麵210公克(承昌)",
+   "category": "米麵/調理食材",
+   "price": 165,
+   "unit": "盒",
+   "locationCode": "B-04-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0039",
+   "name": "粒裝榨菜500公克(公館農會)",
+   "category": "米麵/調理食材",
+   "price": 120,
+   "unit": "包",
+   "locationCode": "G-02-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "FOD-0040",
+   "name": "有機冷凍白花椰300g-免(福業)",
+   "category": "米麵/調理食材",
+   "price": 115,
+   "unit": "包",
+   "locationCode": "R-02-05",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0041",
+   "name": "冷凍有機馬鈴薯丁500公克(看天田)",
+   "category": "米麵/調理食材",
+   "price": 100,
+   "unit": "包",
+   "locationCode": "R-01-04",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0042",
+   "name": "有機轉型期黑木耳150公克(吳明威)",
+   "category": "米麵/調理食材",
+   "price": 155,
+   "unit": "包",
+   "locationCode": "E-02-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "FOD-0043",
+   "name": "有機乾香菇(大菇)200公克(上安張雪娥)",
+   "category": "米麵/調理食材",
+   "price": 725,
+   "unit": "包",
+   "locationCode": "A-04-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0044",
+   "name": "新社香菇-小中菇150g(菇之味)",
+   "category": "米麵/調理食材",
+   "price": 385,
+   "unit": "包",
+   "locationCode": "A-04-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0045",
+   "name": "素豆丁300公克(弘陽生技)",
+   "category": "米麵/調理食材",
+   "price": 70,
+   "unit": "包",
+   "locationCode": "G-03-01",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0046",
+   "name": "素豆條300g(弘陽生技)",
+   "category": "米麵/調理食材",
+   "price": 70,
+   "unit": "包",
+   "locationCode": "G-03-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0047",
+   "name": "海帶芽莖絲40g(新藻)",
+   "category": "米麵/調理食材",
+   "price": 140,
+   "unit": "包",
+   "locationCode": "E-01-01",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0048",
+   "name": "非基改豆包400g(絨豐)N",
+   "category": "米麵/調理食材",
+   "price": 95,
+   "unit": "盒",
+   "locationCode": "R-04-03",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "FOD-0049",
+   "name": "好湯頭500毫升(臺旺)",
+   "category": "米麵/調理食材",
+   "price": 135,
+   "unit": "瓶",
+   "locationCode": "A-02-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0050",
+   "name": "非基因改造黃豆醬油(釀造)500毫升(金蘭)",
+   "category": "米麵/調理食材",
+   "price": 100,
+   "unit": "瓶",
+   "locationCode": "A-03-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0051",
+   "name": "有機醬油(釀造)295毫升(金蘭)",
+   "category": "米麵/調理食材",
+   "price": 195,
+   "unit": "瓶",
+   "locationCode": "A-03-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0052",
+   "name": "細海鹽1200公克(集賢庇護)",
+   "category": "米麵/調理食材",
+   "price": 35,
+   "unit": "包",
+   "locationCode": "F-04-01",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0053",
+   "name": "澳洲湖鹽550公克(簡單生活)",
+   "category": "米麵/調理食材",
+   "price": 80,
+   "unit": "包",
+   "locationCode": "F-04-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0054",
+   "name": "蔬果烏醋300毫升(穀盛)",
+   "category": "米麵/調理食材",
+   "price": 60,
+   "unit": "瓶",
+   "locationCode": "A-03-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0055",
+   "name": "淺漬醋300毫升(良好生活)",
+   "category": "米麵/調理食材",
+   "price": 235,
+   "unit": "瓶",
+   "locationCode": "A-03-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0056",
+   "name": "小籽苦茶油500毫升(金椿)",
+   "category": "米麵/調理食材",
+   "price": 1305,
+   "unit": "瓶",
+   "locationCode": "Q-01-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0057",
+   "name": "原萃高油酸葵花油750毫升(簡單生活)",
+   "category": "米麵/調理食材",
+   "price": 265,
+   "unit": "罐",
+   "locationCode": "B-03-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0058",
+   "name": "有機亞麻籽油250毫升(簡單生活)",
+   "category": "米麵/調理食材",
+   "price": 315,
+   "unit": "瓶",
+   "locationCode": "Q-01-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0059",
+   "name": "紫蘇籽油500毫升(金椿)",
+   "category": "米麵/調理食材",
+   "price": 1085,
+   "unit": "瓶",
+   "locationCode": "Q-01-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0060",
+   "name": "紫蘇籽油隨身油包100毫升(金椿)",
+   "category": "米麵/調理食材",
+   "price": 350,
+   "unit": "盒",
+   "locationCode": "Q-03-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0061",
+   "name": "沙茶醬220公克(自然風)",
+   "category": "米麵/調理食材",
+   "price": 155,
+   "unit": "瓶",
+   "locationCode": "A-02-01",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0062",
+   "name": "香茅冬炎醬250g(好品味)",
+   "category": "米麵/調理食材",
+   "price": 145,
+   "unit": "罐",
+   "locationCode": "A-02-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0063",
+   "name": "有機朝天辣椒醬180g(喜樂)",
+   "category": "米麵/調理食材",
+   "price": 120,
+   "unit": "瓶",
+   "locationCode": "A-02-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0064",
+   "name": "麻油香菇沙茶醬260公克(好品味)",
+   "category": "米麵/調理食材",
+   "price": 145,
+   "unit": "罐",
+   "locationCode": "A-02-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0065",
+   "name": "客家桔醬200公克(阿金姐)",
+   "category": "米麵/調理食材",
+   "price": 125,
+   "unit": "瓶",
+   "locationCode": "A-01-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0066",
+   "name": "原味沙拉醬300公克(恩德發)",
+   "category": "米麵/調理食材",
+   "price": 70,
+   "unit": "瓶",
+   "locationCode": "R-06-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0067",
+   "name": "黑胡椒醬260公克(嘉懋)",
+   "category": "米麵/調理食材",
+   "price": 150,
+   "unit": "罐",
+   "locationCode": "A-02-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "FOD-0068",
+   "name": "公平貿易黑胡椒粉40g-補充包40公克(馥聚)",
+   "category": "米麵/調理食材",
+   "price": 170,
+   "unit": "盒",
+   "locationCode": "B-01-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0069",
+   "name": "公平貿易咖哩粉-原味20公克(馥聚)",
+   "category": "米麵/調理食材",
+   "price": 100,
+   "unit": "盒",
+   "locationCode": "B-01-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0070",
+   "name": "花生醬290公克(五惠)",
+   "category": "米麵/調理食材",
+   "price": 100,
+   "unit": "瓶",
+   "locationCode": "A-01-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0071",
+   "name": "純黑芝麻醬240公克(悅豐)",
+   "category": "米麵/調理食材",
+   "price": 155,
+   "unit": "瓶",
+   "locationCode": "A-01-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0072",
+   "name": "桑椹果醬190公克(五惠)",
+   "category": "米麵/調理食材",
+   "price": 90,
+   "unit": "瓶",
+   "locationCode": "A-01-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0073",
+   "name": "美國melt有機亞麻籽脂肪抹醬(原味)13盎司(安蔻)",
+   "category": "米麵/調理食材",
+   "price": 485,
+   "unit": "盒",
+   "locationCode": "R-06-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0074",
+   "name": "草莓辣椒醬150公克(馥聚)",
+   "category": "米麵/調理食材",
+   "price": 270,
+   "unit": "瓶",
+   "locationCode": "A-02-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0075",
+   "name": "素燥醬280公克(明德)",
+   "category": "米麵/調理食材",
+   "price": 150,
+   "unit": "瓶",
+   "locationCode": "A-02-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0076",
+   "name": "巴薩米克醋陳釀老梅120g(10入)(百格利)",
+   "category": "米麵/調理食材",
+   "price": 265,
+   "unit": "盒",
+   "locationCode": "O-02-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "APP-0001",
+   "name": "平織毛巾圈小方巾Free Size檸檬黃(台灣日用)",
+   "category": "衣飾鞋包",
+   "price": 125,
+   "unit": "條",
+   "locationCode": "Z-02-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "APP-0002",
+   "name": "平織毛巾圈洗臉巾Free Size可可(台灣日用)",
+   "category": "衣飾鞋包",
+   "price": 170,
+   "unit": "條",
+   "locationCode": "Z-02-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "APP-0003",
+   "name": "圓短T(素面羅紋)L燕麥(群杰)",
+   "category": "衣飾鞋包",
+   "price": 720,
+   "unit": "件",
+   "locationCode": "Z-06-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "APP-0004",
+   "name": "恆感男內褲L灰藍(久享)",
+   "category": "衣飾鞋包",
+   "price": 345,
+   "unit": "盒",
+   "locationCode": "Z-04-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "APP-0005",
+   "name": "恆感男背心XL銀灰(久享)",
+   "category": "衣飾鞋包",
+   "price": 695,
+   "unit": "盒",
+   "locationCode": "Z-04-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "APP-0006",
+   "name": "女中腰內褲(涼感環保)S粉桔色(台灣奧黛莉)",
+   "category": "衣飾鞋包",
+   "price": 235,
+   "unit": "件",
+   "locationCode": "Z-03-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0007",
+   "name": "無痕無鋼圈內衣(涼感環保)L奶茶色(台灣奧黛莉)",
+   "category": "衣飾鞋包",
+   "price": 725,
+   "unit": "件",
+   "locationCode": "Z-02-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0008",
+   "name": "女丹寧哈倫褲XL藍(昱昌)",
+   "category": "衣飾鞋包",
+   "price": 1675,
+   "unit": "件",
+   "locationCode": "Z-07-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0009",
+   "name": "女丹寧彈性牛仔褲XL深藍(昱昌)",
+   "category": "衣飾鞋包",
+   "price": 1675,
+   "unit": "件",
+   "locationCode": "Z-07-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0010",
+   "name": "圓短T恤(草原同樂)M白色(群杰)",
+   "category": "衣飾鞋包",
+   "price": 720,
+   "unit": "件",
+   "locationCode": "Z-06-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "APP-0011",
+   "name": "前扣式無鋼圈內衣(輕柔)M奶茶色(台灣奧黛莉)",
+   "category": "衣飾鞋包",
+   "price": 715,
+   "unit": "件",
+   "locationCode": "Z-02-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "APP-0012",
+   "name": "雲柔無鋼圈內衣(涼感環保)M粉芋色(台灣奧黛莉)",
+   "category": "衣飾鞋包",
+   "price": 845,
+   "unit": "件",
+   "locationCode": "Z-02-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0013",
+   "name": "雲柔無鋼圈內衣(涼感環保)L粉芋色(台灣奧黛莉)",
+   "category": "衣飾鞋包",
+   "price": 725,
+   "unit": "件",
+   "locationCode": "Z-02-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0014",
+   "name": "雲柔無鋼圈內衣(涼感環保)XL粉芋色(台灣奧黛莉)",
+   "category": "衣飾鞋包",
+   "price": 805,
+   "unit": "件",
+   "locationCode": "Z-02-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0015",
+   "name": "雲柔無鋼圈內衣(涼感環保)XL淡茶色(台灣奧黛莉)",
+   "category": "衣飾鞋包",
+   "price": 735,
+   "unit": "件",
+   "locationCode": "Z-02-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "APP-0016",
+   "name": "女中腰三角內褲M灰(CL)",
+   "category": "衣飾鞋包",
+   "price": 255,
+   "unit": "件",
+   "locationCode": "Z-03-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "APP-0017",
+   "name": "女中腰三角內褲XL灰(CL)",
+   "category": "衣飾鞋包",
+   "price": 225,
+   "unit": "件",
+   "locationCode": "Z-03-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "APP-0018",
+   "name": "女高腰內褲XL豆蔻粉(台灣奧黛莉)",
+   "category": "衣飾鞋包",
+   "price": 205,
+   "unit": "件",
+   "locationCode": "Z-03-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0019",
+   "name": "女高腰內褲L淺紫灰(台灣奧黛莉)",
+   "category": "衣飾鞋包",
+   "price": 245,
+   "unit": "件",
+   "locationCode": "Z-03-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0020",
+   "name": "雲柔女中腰平口內褲(涼感環保)L淡茶色(台灣奧黛莉)",
+   "category": "衣飾鞋包",
+   "price": 300,
+   "unit": "件",
+   "locationCode": "Z-03-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "APP-0021",
+   "name": "雲柔女中腰內褲(涼感環保)XL粉芋色(台灣奧黛莉)",
+   "category": "衣飾鞋包",
+   "price": 260,
+   "unit": "件",
+   "locationCode": "Z-03-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "APP-0022",
+   "name": "雲柔女中腰內褲(涼感環保)M淡茶色(台灣奧黛莉)",
+   "category": "衣飾鞋包",
+   "price": 265,
+   "unit": "件",
+   "locationCode": "Z-03-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "APP-0023",
+   "name": "女高腰生理褲(涼感)L玫瑰粉(台灣奧黛莉)",
+   "category": "衣飾鞋包",
+   "price": 230,
+   "unit": "件",
+   "locationCode": "Z-03-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0024",
+   "name": "男保暖半高領衫M石榴紅(群杰)",
+   "category": "衣飾鞋包",
+   "price": 610,
+   "unit": "件",
+   "locationCode": "Z-05-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0025",
+   "name": "女保暖半高領衫XL石榴紅(群杰)",
+   "category": "衣飾鞋包",
+   "price": 660,
+   "unit": "件",
+   "locationCode": "Z-06-01",
+   "stock": null,
+   "popularity": 2
+  },
+  {
+   "sku": "APP-0026",
+   "name": "女立領拉鍊上衣XL紫色(久享)",
+   "category": "衣飾鞋包",
+   "price": 915,
+   "unit": "件",
+   "locationCode": "Z-06-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "APP-0027",
+   "name": "女短POLO衫 (鳳梨涼感)L藍色(久享)",
+   "category": "衣飾鞋包",
+   "price": 785,
+   "unit": "件",
+   "locationCode": "Z-05-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "APP-0028",
+   "name": "拚接女圓短T恤 (鳳梨涼感)2XL黃色(久享)",
+   "category": "衣飾鞋包",
+   "price": 775,
+   "unit": "件",
+   "locationCode": "Z-06-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "APP-0029",
+   "name": "拚接女圓短T恤 (鳳梨涼感)L綠色(久享)",
+   "category": "衣飾鞋包",
+   "price": 835,
+   "unit": "件",
+   "locationCode": "Z-06-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0030",
+   "name": "拚接女圓短T恤 (鳳梨涼感)XL中藍(久享)",
+   "category": "衣飾鞋包",
+   "price": 870,
+   "unit": "件",
+   "locationCode": "Z-06-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0031",
+   "name": "拚接女圓短T恤 (鳳梨涼感)2XL中藍(久享)",
+   "category": "衣飾鞋包",
+   "price": 835,
+   "unit": "件",
+   "locationCode": "Z-06-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "APP-0032",
+   "name": "女鳳梨束口褲M深藍(久享)",
+   "category": "衣飾鞋包",
+   "price": 1225,
+   "unit": "件",
+   "locationCode": "Z-07-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "APP-0033",
+   "name": "女鳳梨束口褲XL深藍(久享)",
+   "category": "衣飾鞋包",
+   "price": 1195,
+   "unit": "件",
+   "locationCode": "Z-07-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "APP-0034",
+   "name": "女保暖內搭褲XL深咖啡(群杰)",
+   "category": "衣飾鞋包",
+   "price": 800,
+   "unit": "件",
+   "locationCode": "Z-07-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "APP-0035",
+   "name": "立體船型襪21-24黑(TH)",
+   "category": "衣飾鞋包",
+   "price": 80,
+   "unit": "雙",
+   "locationCode": "Z-01-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "APP-0036",
+   "name": "舒適短襪24-27黑(TH)",
+   "category": "衣飾鞋包",
+   "price": 100,
+   "unit": "雙",
+   "locationCode": "Z-01-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0037",
+   "name": "棉麻條紋襪24-27黑/米(TH)",
+   "category": "衣飾鞋包",
+   "price": 150,
+   "unit": "雙",
+   "locationCode": "Z-01-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0038",
+   "name": "運動短襪(白條)24-27竹棉(TH)",
+   "category": "衣飾鞋包",
+   "price": 120,
+   "unit": "雙",
+   "locationCode": "Z-01-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0039",
+   "name": "立體麻花中筒襪24-27灰(TH)",
+   "category": "衣飾鞋包",
+   "price": 155,
+   "unit": "雙",
+   "locationCode": "Z-01-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0040",
+   "name": "提花短襪(草原同樂)21-24cm白色(泰弘)",
+   "category": "衣飾鞋包",
+   "price": 125,
+   "unit": "雙",
+   "locationCode": "Z-01-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0041",
+   "name": "提花短襪(圖騰之舞)21-24cm灰色(泰弘)",
+   "category": "衣飾鞋包",
+   "price": 130,
+   "unit": "雙",
+   "locationCode": "Z-01-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "APP-0042",
+   "name": "提花短襪(圖騰之舞)21-24cm黑色(泰弘)",
+   "category": "衣飾鞋包",
+   "price": 150,
+   "unit": "雙",
+   "locationCode": "Z-01-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "APP-0043",
+   "name": "防滑淑女襪22-25黑(TH)",
+   "category": "衣飾鞋包",
+   "price": 105,
+   "unit": "雙",
+   "locationCode": "Z-01-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "APP-0044",
+   "name": "有機棉生物訊息護膝M淺灰(久享)",
+   "category": "衣飾鞋包",
+   "price": 1455,
+   "unit": "盒",
+   "locationCode": "Z-08-01",
+   "stock": null,
+   "popularity": 1
+  },
+  {
+   "sku": "FOD-0077",
+   "name": "龍眼蜂蜜700公克(宏基蜜蜂)",
+   "category": "飲品/零食",
+   "price": 655,
+   "unit": "瓶",
+   "locationCode": "B-02-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0078",
+   "name": "麥蘆卡蜂蜜UMF5+250公克(馥聚)",
+   "category": "飲品/零食",
+   "price": 540,
+   "unit": "瓶",
+   "locationCode": "A-01-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0079",
+   "name": "雪比經典優格100公克(隆昌)",
+   "category": "飲品/零食",
+   "price": 40,
+   "unit": "杯",
+   "locationCode": "R-06-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0080",
+   "name": "滷素肚150g(得意中華)",
+   "category": "飲品/零食",
+   "price": 80,
+   "unit": "包",
+   "locationCode": "I-02-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0081",
+   "name": "有機野生藍莓粉100公克(馥聚)",
+   "category": "飲品/零食",
+   "price": 840,
+   "unit": "包",
+   "locationCode": null,
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0082",
+   "name": "本味誠現-蘇格蘭乳酥餅204公克(宏亞)",
+   "category": "飲品/零食",
+   "price": 90,
+   "unit": "盒",
+   "locationCode": "H-03-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "FOD-0083",
+   "name": "腰果鹹醬夾心酥268公克(咪咪樂)",
+   "category": "飲品/零食",
+   "price": 150,
+   "unit": "盒",
+   "locationCode": "I-04-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0084",
+   "name": "原味糙米餅120公克(餐御宴)",
+   "category": "飲品/零食",
+   "price": 90,
+   "unit": "盒",
+   "locationCode": "J-02-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0085",
+   "name": "杏仁玄米餅264公克(餐御宴)",
+   "category": "飲品/零食",
+   "price": 210,
+   "unit": "盒",
+   "locationCode": "J-04-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "FOD-0086",
+   "name": "寶貝旦70公克(宗林)",
+   "category": "飲品/零食",
+   "price": 45,
+   "unit": "袋",
+   "locationCode": "J-01-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0087",
+   "name": "紅茶威化餅50g(宏亞)",
+   "category": "飲品/零食",
+   "price": 50,
+   "unit": "包",
+   "locationCode": "J-02-01",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0088",
+   "name": "玉米爆爆80公克(奇美部落)",
+   "category": "飲品/零食",
+   "price": 125,
+   "unit": "袋",
+   "locationCode": "H-04-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0089",
+   "name": "鷹嘴豆脆片(椒鹽口味)480公克(鈺統)",
+   "category": "飲品/零食",
+   "price": 240,
+   "unit": "盒",
+   "locationCode": "K-03-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "FOD-0090",
+   "name": "仙草軟糖220公克(豆之家)",
+   "category": "飲品/零食",
+   "price": 105,
+   "unit": "盒",
+   "locationCode": "K-04-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0091",
+   "name": "草本喉糖120公克(湧酉)",
+   "category": "飲品/零食",
+   "price": 100,
+   "unit": "盒",
+   "locationCode": "J-02-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0092",
+   "name": "梅津糖100公克(綠得)",
+   "category": "飲品/零食",
+   "price": 85,
+   "unit": "包",
+   "locationCode": "K-03-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0093",
+   "name": "梅精軟糖65公克(咪咪樂)",
+   "category": "飲品/零食",
+   "price": 70,
+   "unit": "盒",
+   "locationCode": "K-01-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0094",
+   "name": "梅子仙楂果130公克(佳合)",
+   "category": "飲品/零食",
+   "price": 60,
+   "unit": "包",
+   "locationCode": "J-01-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0095",
+   "name": "法式水果軟糖-蔓越莓、藍莓100g(豆之家)",
+   "category": "飲品/零食",
+   "price": 85,
+   "unit": "盒",
+   "locationCode": "K-01-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0096",
+   "name": "蜂蜜果凍條190公克(宏基蜜蜂)",
+   "category": "飲品/零食",
+   "price": 75,
+   "unit": "盒",
+   "locationCode": "H-02-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0097",
+   "name": "有機桑椹果粒凍130公克(豐喜)",
+   "category": "飲品/零食",
+   "price": 35,
+   "unit": "杯",
+   "locationCode": "O-03-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0098",
+   "name": "桑椹果汁蒟蒻300公克(豐喜)",
+   "category": "飲品/零食",
+   "price": 85,
+   "unit": "包",
+   "locationCode": "K-04-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0099",
+   "name": "昆布糖200g(新和興)",
+   "category": "飲品/零食",
+   "price": 185,
+   "unit": "包",
+   "locationCode": "I-02-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0100",
+   "name": "馬告豆干300公克(台灣味)",
+   "category": "飲品/零食",
+   "price": 180,
+   "unit": "包",
+   "locationCode": "I-02-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0101",
+   "name": "原味香烤條120公克(弘陽生技)",
+   "category": "飲品/零食",
+   "price": 85,
+   "unit": "包",
+   "locationCode": "J-03-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0102",
+   "name": "麻辣花生180公克(豆之家)",
+   "category": "飲品/零食",
+   "price": 130,
+   "unit": "包",
+   "locationCode": "I-01-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0103",
+   "name": "有機腰果250公克(簡單生活)",
+   "category": "飲品/零食",
+   "price": 345,
+   "unit": "包",
+   "locationCode": "D-01-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0104",
+   "name": "鹽焗夏威夷果85g(豆之家)",
+   "category": "飲品/零食",
+   "price": 155,
+   "unit": "袋",
+   "locationCode": "I-01-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0105",
+   "name": "無調味有機夏威夷果130公克(簡單生活)",
+   "category": "飲品/零食",
+   "price": 475,
+   "unit": "罐",
+   "locationCode": "I-01-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "FOD-0106",
+   "name": "帶皮鹹酥腰果200公克(悅豐)",
+   "category": "飲品/零食",
+   "price": 225,
+   "unit": "包",
+   "locationCode": "I-01-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0107",
+   "name": "蘋果優格果乾12公克(清淨)",
+   "category": "飲品/零食",
+   "price": 90,
+   "unit": "包",
+   "locationCode": "H-01-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0108",
+   "name": "藍靛果原汁330毫升(馥聚)",
+   "category": "飲品/零食",
+   "price": 580,
+   "unit": "瓶",
+   "locationCode": "B-02-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0109",
+   "name": "有機蘋果汁195毫升(潤泉)",
+   "category": "飲品/零食",
+   "price": 50,
+   "unit": "瓶",
+   "locationCode": "O-04-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0110",
+   "name": "奧納芮有機蕃茄汁295ml(可果美)",
+   "category": "飲品/零食",
+   "price": 60,
+   "unit": "瓶",
+   "locationCode": "O-04-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0111",
+   "name": "黑麥原汁330毫升(東南(德意))",
+   "category": "飲品/零食",
+   "price": 50,
+   "unit": "瓶",
+   "locationCode": "O-08-01",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0112",
+   "name": "烏梅汁360毫升(潤泉)",
+   "category": "飲品/零食",
+   "price": 35,
+   "unit": "瓶",
+   "locationCode": "O-04-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0113",
+   "name": "人蔘蜜棗茶360毫升(潤泉)",
+   "category": "飲品/零食",
+   "price": 25,
+   "unit": "瓶",
+   "locationCode": "O-04-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0114",
+   "name": "有機醇濃豆乳(無糖)960毫升(不二)",
+   "category": "飲品/零食",
+   "price": 95,
+   "unit": "瓶",
+   "locationCode": "R-05-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0115",
+   "name": "杏仁香米乳910毫升(格林)",
+   "category": "飲品/零食",
+   "price": 130,
+   "unit": "瓶",
+   "locationCode": "R-05-02",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0116",
+   "name": "過好日米潤飲雙入禮盒1000毫升(禾乃川)",
+   "category": "飲品/零食",
+   "price": 505,
+   "unit": "盒",
+   "locationCode": "R-00-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0117",
+   "name": "銅鑼杭菊70公克(韓順雄)",
+   "category": "飲品/零食",
+   "price": 305,
+   "unit": "盒",
+   "locationCode": "O-06-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0118",
+   "name": "台糖黑糖薑母茶200g(10包)",
+   "category": "飲品/零食",
+   "price": 130,
+   "unit": "盒",
+   "locationCode": "Q-01-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0119",
+   "name": "有機手採蜜香紅茶150公克(玉露林立偉)",
+   "category": "飲品/零食",
+   "price": 540,
+   "unit": "盒",
+   "locationCode": "O-01-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "FOD-0120",
+   "name": "有機手採玉露綠茶60公克(玉露林立偉)",
+   "category": "飲品/零食",
+   "price": 260,
+   "unit": "盒",
+   "locationCode": "O-01-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0121",
+   "name": "有機轉型期紅茶平面茶包(盒裝)60公克(淨源)",
+   "category": "飲品/零食",
+   "price": 405,
+   "unit": "盒",
+   "locationCode": "O-01-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "FOD-0122",
+   "name": "有機轉型期熟香平面茶包(盒裝)60公克(淨源)",
+   "category": "飲品/零食",
+   "price": 430,
+   "unit": "盒",
+   "locationCode": "O-01-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0123",
+   "name": "有機鐵觀音茶120公克(谷芳李昌峻)",
+   "category": "飲品/零食",
+   "price": 630,
+   "unit": "盒",
+   "locationCode": "O-01-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0124",
+   "name": "耶加雪啡227公克(果實商行)",
+   "category": "飲品/零食",
+   "price": 440,
+   "unit": "包",
+   "locationCode": "O-06-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0125",
+   "name": "雲鄉咖啡-藍山風味(咖啡豆)227公克(上海真豆咖啡)",
+   "category": "飲品/零食",
+   "price": 355,
+   "unit": "包",
+   "locationCode": "O-06-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0126",
+   "name": "雨林聯盟認證濾泡式咖啡(哥倫比亞水洗)60公克(卡塔摩納)",
+   "category": "飲品/零食",
+   "price": 220,
+   "unit": "盒",
+   "locationCode": "O-06-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0127",
+   "name": "有機純可可粉224公克(馥聚)",
+   "category": "飲品/零食",
+   "price": 550,
+   "unit": "罐",
+   "locationCode": "Q-01-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0128",
+   "name": "植物燕麥奶1000g(鈺統)",
+   "category": "飲品/零食",
+   "price": 370,
+   "unit": "罐",
+   "locationCode": "L-07-01",
+   "stock": null,
+   "popularity": 6
+  },
+  {
+   "sku": "FOD-0129",
+   "name": "益生菌草莓麥片300公克(簡單生活)",
+   "category": "飲品/零食",
+   "price": 255,
+   "unit": "盒",
+   "locationCode": "B-03-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0130",
+   "name": "首烏養生藥膳燉包40公克(甜河谷)",
+   "category": "養身保健",
+   "price": 120,
+   "unit": "袋",
+   "locationCode": "G-02-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0131",
+   "name": "養生四神粉400公克(甜河谷)",
+   "category": "養身保健",
+   "price": 485,
+   "unit": "袋",
+   "locationCode": "F-01-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0132",
+   "name": "男性綜合維他命43.8公克(會昌)",
+   "category": "養身保健",
+   "price": 685,
+   "unit": "盒",
+   "locationCode": "L-04-01",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0133",
+   "name": "橄欖粉100公克(台灣橄欖)",
+   "category": "養身保健",
+   "price": 395,
+   "unit": "瓶",
+   "locationCode": "L-03-01",
+   "stock": null,
+   "popularity": 8
+  },
+  {
+   "sku": "FOD-0134",
+   "name": "有機薑粉100公克(大青爭)",
+   "category": "養身保健",
+   "price": 460,
+   "unit": "瓶",
+   "locationCode": "B-01-01",
+   "stock": null,
+   "popularity": 3
+  },
+  {
+   "sku": "FOD-0135",
+   "name": "綜合蛋白補充飲900公克(鈺統)",
+   "category": "養身保健",
+   "price": 720,
+   "unit": "罐",
+   "locationCode": "L-07-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0136",
+   "name": "健補芝養素800公克(鈺統)",
+   "category": "養身保健",
+   "price": 1025,
+   "unit": "罐",
+   "locationCode": "L-07-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0137",
+   "name": "藍礦飲150公克(生展)",
+   "category": "養身保健",
+   "price": 590,
+   "unit": "盒",
+   "locationCode": "L-05-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0138",
+   "name": "NEW高優活乳酸菌粉75g(30入)(生展)",
+   "category": "養身保健",
+   "price": 510,
+   "unit": "盒",
+   "locationCode": "L-05-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0139",
+   "name": "護童益90公克(會昌)",
+   "category": "養身保健",
+   "price": 705,
+   "unit": "盒",
+   "locationCode": "L-04-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0140",
+   "name": "琥珀蜂膠30毫升(福鶴惠寶)",
+   "category": "養身保健",
+   "price": 885,
+   "unit": "盒",
+   "locationCode": "L-03-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0141",
+   "name": "桂圓四物飲145毫升(春喬)",
+   "category": "養身保健",
+   "price": 70,
+   "unit": "瓶",
+   "locationCode": "L-03-01",
+   "stock": null,
+   "popularity": 4
+  },
+  {
+   "sku": "FOD-0142",
+   "name": "花旗蔘元氣飲10ml×10包(甜河谷)",
+   "category": "養身保健",
+   "price": 320,
+   "unit": "盒",
+   "locationCode": "L-05-01",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0143",
+   "name": "補體素優力蛋白飲237ml(思耐得)",
+   "category": "養身保健",
+   "price": 80,
+   "unit": "罐",
+   "locationCode": "O-02-01",
+   "stock": null,
+   "popularity": 9
+  },
+  {
+   "sku": "FOD-0144",
+   "name": "活力機能凍飲180公克(生展)",
+   "category": "養身保健",
+   "price": 50,
+   "unit": "袋",
+   "locationCode": "O-02-01",
+   "stock": null,
+   "popularity": 7
+  },
+  {
+   "sku": "FOD-0145",
+   "name": "有機黃耆(調理包)200公克(簡單生活)",
+   "category": "養身保健",
+   "price": 255,
+   "unit": "盒",
+   "locationCode": "I-02-01",
+   "stock": null,
+   "popularity": 5
+  },
+  {
+   "sku": "FOD-0146",
+   "name": "胺基酸補充飲禮盒60mlx6入(湧酉)",
+   "category": "養身保健",
+   "price": 440,
+   "unit": "盒",
+   "locationCode": "L-05-01",
+   "stock": null,
+   "popularity": 3
+  }
+ ]
+}
