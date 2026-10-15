@@ -238,3 +238,11 @@ model OrderItem {
   @@index([orderId])
   @@index([productId])
 }
+
+/// Bookkeeping for scripts/start.mjs: which demo catalog the hosted demo data was built from.
+model DemoSeedMeta {
+  key   String @id
+  value String
+
+  @@map("_demo_seed")
+}

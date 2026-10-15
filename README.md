@@ -72,6 +72,28 @@ npm run dev                     # http://localhost:3000
 - 盤點：可依「儲位區」或「商品分類」建立盤點；盤點表依儲位動線排序並分組，提供儲位進度列與「下一個未盤儲位」快速跳轉；每筆盤點明細記錄盤點當下的儲位快照
 - 盤差分析新增「各儲位區盤差 / 準確率」；商品、庫存、Dashboard 皆顯示儲位資訊（含超出容量儲位）
 
+## Google Sheets 串接（POS 即時庫存匯入）
+
+把 POS「門市即時庫存」報表（POS0021 格式：大類、中類、品號、品名、單位、單價、數量、儲位）從 Google Sheets 匯入 ERP。
+
+1. 在 Google Cloud 建立服務帳戶並下載金鑰 JSON，**放在專案資料夾以外**，絕不 commit。
+2. 把試算表分享給服務帳戶的 `client_email`（讀取用「檢視者」即可）。
+3. 在 `.env` 設定：
+   ```
+   GOOGLE_SERVICE_ACCOUNT_FILE="/path/outside/repo/key.json"
+   POS_STOCK_SHEET="<試算表 ID 或網址>"
+   ```
+4. 執行：
+
+| 指令 | 做什麼 | 資料去哪 |
+|---|---|---|
+| `npm run sheets:import -- real` | 用真實商品、分類、儲位、庫存重建**本機**資料庫（會員與訂單仍為模擬） | 只限本機；`DATABASE_URL` 不是 localhost 會拒絕執行，快取在 git 忽略的 `.local-data/` |
+| `npm run sheets:import -- anonymize` | 依分類分層抽樣（預設 240 項），重新編 SKU、價格 ±12% 擾動、移除庫存數量與門市資訊 | 寫入 `prisma/data/demo-catalog.json`，可 commit 供線上展示 |
+
+儲位代碼轉換：POS 的 `S1` → `S-01-01`、`Z1A` → `Z-01-01`（字母代表層）、`S` → `S-00-01`；以蔬果為主的區域設為冷藏。
+
+線上部署（`npm run start:prod`）會比對 `demo-catalog.json` 的指紋，內容有變動時自動重建一次展示資料；`SEED_CATALOG=builtin` 可改回原本 52 項示範商品，`SEED_IF_EMPTY=false` 則完全不動資料。
+
 ## 功能模組
 
 ### 1. 商品資訊管理

@@ -1,5 +1,7 @@
+import { existsSync, readFileSync } from "node:fs";
 import { PrismaClient } from "@prisma/client";
 import { generateSeedData } from "./seed-data";
+import { DEMO_CATALOG_PATH, type Catalog } from "./catalog";
 
 const prisma = new PrismaClient();
 
@@ -9,10 +11,28 @@ async function chunked<T>(rows: T[], size: number, fn: (chunk: T[]) => Promise<u
   }
 }
 
-async function main() {
+/**
+ * Which product catalog to seed with:
+ * - SEED_CATALOG=<path>  a catalog JSON (e.g. a local, real POS import)
+ * - SEED_CATALOG=builtin the original 52 hand-written demo products
+ * - unset                the committed anonymized catalog if present, else builtin
+ */
+function loadCatalog(): Catalog | undefined {
+  const choice = process.env.SEED_CATALOG;
+  if (choice === "builtin") return undefined;
+  const path = choice || DEMO_CATALOG_PATH;
+  if (!existsSync(path)) {
+    if (choice) throw new Error(`SEED_CATALOG file not found: ${path}`);
+    return undefined;
+  }
+  return JSON.parse(readFileSync(path, "utf8")) as Catalog;
+}
+
+/** Seeds the database; exported so the Sheets import script can reuse it. */
+export async function seed(catalog: Catalog | undefined) {
   const now = new Date();
-  console.log("Generating demo data…");
-  const data = generateSeedData(now);
+  console.log(`Generating demo data (${catalog ? `${catalog.source}, ${catalog.products.length} products` : "built-in catalog"})…`);
+  const data = generateSeedData(now, catalog);
 
   console.log("Clearing existing data…");
   await prisma.orderItem.deleteMany();
@@ -42,16 +62,23 @@ async function main() {
 
   console.log("Seeding inventory count sessions…");
   await prisma.inventoryCountSession.createMany({ data: data.sessions });
-  await prisma.inventoryCountItem.createMany({ data: data.countItems });
 
+  await chunked(data.countItems, 10000, (chunk) => prisma.inventoryCountItem.createMany({ data: chunk }));
   console.log("✅ Seed complete");
 }
 
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+// run directly: `tsx prisma/seed.ts`
+if (process.argv[1]?.replace(/\\/g, "/").endsWith("prisma/seed.ts")) {
+  seed(loadCatalog())
+    .catch((e) => {
+      console.error(e);
+      process.exit(1);
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
+}
+
+export async function disconnectSeed() {
+  await prisma.$disconnect();
+}

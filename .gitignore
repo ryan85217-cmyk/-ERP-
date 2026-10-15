@@ -8,3 +8,4 @@ out
 .pgdata
 .env.*.local
 .claude
+.local-data

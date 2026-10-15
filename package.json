@@ -15,7 +15,8 @@
     "setup": "prisma migrate deploy && prisma db seed",
     "postinstall": "prisma generate",
     "db:start": "node scripts/dev-db.mjs",
-    "start:prod": "node scripts/start.mjs"
+    "start:prod": "node scripts/start.mjs",
+    "sheets:import": "tsx scripts/sheets-import.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -26,6 +27,7 @@
     "@radix-ui/react-slot": "1.2.3",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
+    "google-auth-library": "^9.15.1",
     "lucide-react": "0.544.0",
     "next": "15.5.27",
     "prisma": "6.16.2",

@@ -4,6 +4,7 @@
  * dashboard always has "today" / "this week" activity after seeding.
  */
 import { classifyMember } from "../src/lib/segments";
+import type { Catalog } from "./catalog";
 
 type CountStatus = "DRAFT" | "IN_PROGRESS" | "PAUSED" | "COMPLETED";
 type LocationType = "SHELF" | "DISPLAY" | "CHILLED" | "FROZEN" | "BACKROOM";
@@ -249,22 +250,16 @@ const OPERATORS = ["王店長", "陳副店長", "林小美", "張大偉", "李�
 const PAYMENTS = ["CASH", "CARD", "LINE_PAY", "EASY_CARD"] as const;
 const PAYMENT_WEIGHTS = [35, 30, 25, 10];
 
+/** "loc_B-01-02" → "B" */
+const zoneOf = (locationId: string) => locationId.slice(4).split("-")[0];
+
 // ───────── generator ─────────
-export function generateSeedData(now: Date = new Date()) {
+export function generateSeedData(now: Date = new Date(), catalog?: Catalog) {
   const today = localStartOfDay(now);
   const HISTORY_DAYS = 760;
   const firstDay = new Date(today.getTime() - HISTORY_DAYS * DAY);
 
-  const categories = CATEGORIES.map((name, i) => ({
-    id: `cat_${i + 1}`,
-    name,
-    nameEn: CATEGORY_I18N[i].en,
-    nameJa: CATEGORY_I18N[i].ja,
-    sortOrder: i,
-  }));
-
-  // ── storage locations: zones A–H (2 aisles × 3 levels each) + backroom R ──
-  const locations: {
+  type LocationRow = {
     id: string;
     code: string;
     zone: string;
@@ -275,57 +270,157 @@ export function generateSeedData(now: Date = new Date()) {
     sortOrder: number;
     note: string | null;
     isActive: boolean;
-  }[] = [];
-  const zoneDefs = [...CATEGORY_ZONES, { zone: "R", type: "BACKROOM" as LocationType, capacity: 500 }];
-  zoneDefs.forEach((z, zi) => {
-    for (let aisle = 1; aisle <= 2; aisle++) {
-      for (let level = 1; level <= 3; level++) {
-        const code = `${z.zone}-${pad(aisle)}-${pad(level)}`;
-        const isRepair = code === "R-02-03";
-        locations.push({
-          id: `loc_${code}`,
-          code,
-          zone: z.zone,
-          aisle,
-          level,
-          type: z.type,
-          capacity: z.capacity,
-          sortOrder: zi * 100 + aisle * 10 + level,
-          note: z.zone === "R" ? (isRepair ? "冷氣維修中，暫停使用" : "後場備貨區") : null,
-          isActive: !isRepair,
-        });
-      }
-    }
-  });
-  const suppliers = SUPPLIERS.map((s, i) => ({ id: `sup_${i + 1}`, ...s, note: s.note || null }));
+  };
+  type ProductRow = {
+    id: string;
+    sku: string;
+    name: string;
+    nameEn: string | null;
+    nameJa: string | null;
+    locationId: string | null;
+    categoryId: string;
+    imageUrl: string | null;
+    ingredients: string | null;
+    price: number;
+    origin: string | null;
+    supplierId: string | null;
+    recipe: string | null;
+    cookingMethod: string | null;
+    isActive: boolean;
+    createdAt: Date;
+  };
 
-  const skuCounters = new Array(CATEGORIES.length).fill(0);
-  const products = PRODUCT_DEFS.map((p, i) => {
-    skuCounters[p.cat] += 1;
-    // n-th product of the category goes to the n-th slot of the category zone (wrapping after 6)
-    const slot = (skuCounters[p.cat] - 1) % 6;
-    const locationId = `loc_${CATEGORY_ZONES[p.cat].zone}-${pad(Math.floor(slot / 3) + 1)}-${pad((slot % 3) + 1)}`;
-    return {
-      id: `prd_${pad(i + 1, 3)}`,
-      sku: `${SKU_PREFIX[p.cat]}-${pad(skuCounters[p.cat], 4)}`,
-      name: p.name,
-      nameEn: PRODUCT_I18N[i][0],
-      nameJa: PRODUCT_I18N[i][1],
-      locationId,
-      categoryId: categories[p.cat].id,
-      imageUrl: null as string | null,
-      ingredients: p.ingredients,
-      price: p.price,
-      origin: p.origin,
-      supplierId: suppliers[p.sup].id,
-      recipe: p.recipe ?? null,
-      cookingMethod: p.cooking ?? null,
-      // a couple of delisted products for demo
-      isActive: i !== 13 && i !== 46,
-      createdAt: new Date(firstDay.getTime() - randInt(10, 60) * DAY),
-    };
-  });
-  const productPop = PRODUCT_DEFS.map((p) => p.pop);
+  let categories: { id: string; name: string; nameEn: string | null; nameJa: string | null; sortOrder: number }[];
+  const locations: LocationRow[] = [];
+  let suppliers: { id: string; name: string; contactName: string; phone: string; email: string; address: string; note: string | null }[];
+  let products: ProductRow[];
+  let productPop: number[];
+  /** POS on-hand quantity per product when the catalog provides it */
+  let productStock: (number | null)[];
+  /** zones covered by the seeded "paused" partial count */
+  let pausedZones: string[];
+
+  if (!catalog) {
+    categories = CATEGORIES.map((name, i) => ({
+      id: `cat_${i + 1}`,
+      name,
+      nameEn: CATEGORY_I18N[i].en,
+      nameJa: CATEGORY_I18N[i].ja,
+      sortOrder: i,
+    }));
+
+    // ── storage locations: zones A–H (2 aisles × 3 levels each) + backroom R ──
+    const zoneDefs = [...CATEGORY_ZONES, { zone: "R", type: "BACKROOM" as LocationType, capacity: 500 }];
+    zoneDefs.forEach((z, zi) => {
+      for (let aisle = 1; aisle <= 2; aisle++) {
+        for (let level = 1; level <= 3; level++) {
+          const code = `${z.zone}-${pad(aisle)}-${pad(level)}`;
+          const isRepair = code === "R-02-03";
+          locations.push({
+            id: `loc_${code}`,
+            code,
+            zone: z.zone,
+            aisle,
+            level,
+            type: z.type,
+            capacity: z.capacity,
+            sortOrder: zi * 100 + aisle * 10 + level,
+            note: z.zone === "R" ? (isRepair ? "冷氣維修中，暫停使用" : "後場備貨區") : null,
+            isActive: !isRepair,
+          });
+        }
+      }
+    });
+    suppliers = SUPPLIERS.map((s, i) => ({ id: `sup_${i + 1}`, ...s, note: s.note || null }));
+
+    const skuCounters = new Array(CATEGORIES.length).fill(0);
+    products = PRODUCT_DEFS.map((p, i) => {
+      skuCounters[p.cat] += 1;
+      // n-th product of the category goes to the n-th slot of the category zone (wrapping after 6)
+      const slot = (skuCounters[p.cat] - 1) % 6;
+      const locationId = `loc_${CATEGORY_ZONES[p.cat].zone}-${pad(Math.floor(slot / 3) + 1)}-${pad((slot % 3) + 1)}`;
+      return {
+        id: `prd_${pad(i + 1, 3)}`,
+        sku: `${SKU_PREFIX[p.cat]}-${pad(skuCounters[p.cat], 4)}`,
+        name: p.name,
+        nameEn: PRODUCT_I18N[i][0],
+        nameJa: PRODUCT_I18N[i][1],
+        locationId,
+        categoryId: categories[p.cat].id,
+        imageUrl: null,
+        ingredients: p.ingredients,
+        price: p.price,
+        origin: p.origin,
+        supplierId: suppliers[p.sup].id,
+        recipe: p.recipe ?? null,
+        cookingMethod: p.cooking ?? null,
+        // a couple of delisted products for demo
+        isActive: i !== 13 && i !== 46,
+        createdAt: new Date(firstDay.getTime() - randInt(10, 60) * DAY),
+      };
+    });
+    productPop = PRODUCT_DEFS.map((p) => p.pop);
+    productStock = products.map(() => null);
+    pausedZones = ["B", "C", "D"];
+  } else {
+    categories = catalog.categories.map((c, i) => ({
+      id: `cat_${i + 1}`,
+      name: c.name,
+      nameEn: c.nameEn ?? null,
+      nameJa: c.nameJa ?? null,
+      sortOrder: i,
+    }));
+    const catId = new Map(categories.map((c) => [c.name, c.id]));
+    const capacityByType: Record<LocationType, number> = { SHELF: 160, DISPLAY: 120, CHILLED: 100, FROZEN: 90, BACKROOM: 500 };
+    const zoneOrder = Array.from(new Set(catalog.locations.map((l) => l.zone))).sort();
+    for (const l of catalog.locations) {
+      locations.push({
+        id: `loc_${l.code}`,
+        code: l.code,
+        zone: l.zone,
+        aisle: l.aisle,
+        level: l.level,
+        type: l.type,
+        capacity: capacityByType[l.type],
+        sortOrder: zoneOrder.indexOf(l.zone) * 10_000 + l.aisle * 100 + l.level,
+        note: l.note ?? null,
+        isActive: true,
+      });
+    }
+    const locIds = new Set(locations.map((l) => l.id));
+    suppliers = [];
+    products = catalog.products.map((p, i) => {
+      const categoryId = catId.get(p.category);
+      if (!categoryId) throw new Error(`Catalog product ${p.sku} has unknown category "${p.category}"`);
+      const locationId = p.locationCode ? `loc_${p.locationCode}` : null;
+      if (locationId && !locIds.has(locationId)) throw new Error(`Catalog product ${p.sku} has unknown location "${p.locationCode}"`);
+      return {
+        id: `prd_${pad(i + 1, 4)}`,
+        sku: p.sku,
+        name: p.name,
+        nameEn: null,
+        nameJa: null,
+        locationId,
+        categoryId,
+        imageUrl: null,
+        ingredients: null,
+        price: p.price,
+        origin: null,
+        supplierId: null,
+        recipe: null,
+        cookingMethod: null,
+        isActive: true,
+        createdAt: new Date(firstDay.getTime() - randInt(10, 60) * DAY),
+      };
+    });
+    productPop = catalog.products.map((p) => Math.min(10, Math.max(1, Math.round(p.popularity))));
+    productStock = catalog.products.map((p) => p.stock);
+    // the three zones holding the most products make a realistic partial count
+    const perZone = new Map<string, number>();
+    for (const p of products) if (p.locationId) perZone.set(zoneOf(p.locationId), (perZone.get(zoneOf(p.locationId)) ?? 0) + 1);
+    pausedZones = [...perZone.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3).map(([z]) => z).sort();
+  }
+  const categoryName = new Map(categories.map((c) => [c.id, c.name]));
   const activeProducts = products.filter((p) => p.isActive);
   const activeWeights = activeProducts.map((p) => productPop[products.indexOf(p)]);
   const activeWeightTotal = activeWeights.reduce((a, b) => a + b, 0);
@@ -450,7 +545,7 @@ export function generateSeedData(now: Date = new Date()) {
           orderId,
           productId: p.id,
           productName: p.name,
-          categoryName: CATEGORIES[PRODUCT_DEFS[products.indexOf(p)].cat],
+          categoryName: categoryName.get(p.categoryId)!,
           quantity: qty,
           unitPrice: p.price,
           subtotal,
@@ -503,10 +598,12 @@ export function generateSeedData(now: Date = new Date()) {
     let posStock = randInt(Math.round(safetyStock * 0.4), safetyStock * 5);
     if (i % 9 === 0) posStock = randInt(0, Math.max(1, safetyStock - 3)); // below safety stock
     if (i % 13 === 5) posStock = safetyStock * randInt(5, 8); // overstock
+    const known = productStock[i];
+    if (known !== null) posStock = Math.max(0, Math.round(known));
     const mismatch = rand() < 0.3;
     const storeStock = mismatch ? Math.max(0, posStock - randInt(-3, 6)) : posStock;
     return {
-      id: `inv_${pad(i + 1, 3)}`,
+      id: `inv_${pad(i + 1, 4)}`,
       productId: p.id,
       posStock,
       storeStock,
@@ -537,8 +634,8 @@ export function generateSeedData(now: Date = new Date()) {
     id: string;
     sessionId: string;
     productId: string;
-    locationId: string;
-    locationCode: string;
+    locationId: string | null;
+    locationCode: string | null;
     posQty: number;
     actualQty: number | null;
     variance: number | null;
@@ -565,9 +662,9 @@ export function generateSeedData(now: Date = new Date()) {
     const startedAt = new Date(countDate.getTime() + (plan.daysAgo === 0 ? Math.min(nowLocalHour, 8) : 8) * 3_600_000);
     const id = `ics_${si + 1}`;
     // the paused count is a chilled / frozen zone count; the others cover the whole store
-    const zones = plan.status === "PAUSED" ? ["B", "C", "D"] : [];
+    const zones = plan.status === "PAUSED" ? pausedZones : [];
     const scope = zones.length
-      ? activeProducts.filter((p) => zones.includes(p.locationId.slice(4, 5)))
+      ? activeProducts.filter((p) => p.locationId && zones.includes(zoneOf(p.locationId)))
       : activeProducts;
     let counted = 0;
     let totalVar = 0;
@@ -596,7 +693,7 @@ export function generateSeedData(now: Date = new Date()) {
         sessionId: id,
         productId: p.id,
         locationId: p.locationId,
-        locationCode: p.locationId.slice(4),
+        locationCode: p.locationId ? p.locationId.slice(4) : null,
         posQty,
         actualQty,
         variance,
