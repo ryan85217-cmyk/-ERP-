@@ -15,6 +15,8 @@ import {
   Warehouse,
 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { exportSheet, exportSheetUrl } from "@/lib/google/export-config";
+import { SheetsExportButton } from "@/components/shared/sheets-export-button";
 import {
   getCategoryShare,
   getMonthlyRepurchaseRate,
@@ -144,12 +146,19 @@ export default async function DashboardPage({
   const warehouseTotal = inventory.reduce((a, i) => a + i.warehouseStock, 0);
   const warehouseValue = inventory.reduce((a, i) => a + i.warehouseStock * i.product.price, 0);
 
+  const sheet = exportSheet();
+
   return (
     <>
       <PageHeader
         title={t.nav.dashboard}
         description={d.desc}
-        actions={<RangeTabs value={range} />}
+        actions={
+          <div className="flex flex-wrap items-center gap-3">
+            {sheet && <SheetsExportButton sheetUrl={exportSheetUrl(sheet)} />}
+            <RangeTabs value={range} />
+          </div>
+        }
       />
 
       {/* fixed-period revenue */}

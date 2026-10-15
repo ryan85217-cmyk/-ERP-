@@ -3,6 +3,12 @@ import { defineMessages } from "../config";
 export default defineMessages(
   {
     desc: "門市營運總覽：營收、會員、庫存與盤點",
+    sheetsExport: "匯出到 Google Sheets",
+    sheetsExporting: "匯出中…",
+    sheetsExported: "已更新 {n} 個分頁",
+    sheetsOpen: "開啟試算表",
+    sheetsFailed: "匯出失敗：{error}",
+    sheetsNotConfigured: "尚未設定 Google Sheets 匯出",
     todayRevenue: "今日營收",
     todayHint: "{n} 筆訂單 · vs 昨日同時段",
     weekRevenue: "本週營收",
@@ -65,6 +71,12 @@ export default defineMessages(
   {
     ja: {
       desc: "店舗運営の概要：売上・会員・在庫・棚卸",
+      sheetsExport: "Google スプレッドシートに出力",
+      sheetsExporting: "出力中…",
+      sheetsExported: "{n} シートを更新しました",
+      sheetsOpen: "スプレッドシートを開く",
+      sheetsFailed: "出力に失敗しました：{error}",
+      sheetsNotConfigured: "Google スプレッドシート出力が未設定です",
       todayRevenue: "本日の売上",
       todayHint: "{n} 件の注文 · 昨日同時刻比",
       weekRevenue: "今週の売上",
@@ -126,6 +138,12 @@ export default defineMessages(
     },
     en: {
       desc: "Store overview: revenue, members, inventory and stock counts",
+      sheetsExport: "Export to Google Sheets",
+      sheetsExporting: "Exporting…",
+      sheetsExported: "Updated {n} tabs",
+      sheetsOpen: "Open sheet",
+      sheetsFailed: "Export failed: {error}",
+      sheetsNotConfigured: "Google Sheets export is not set up",
       todayRevenue: "Today’s revenue",
       todayHint: "{n} orders · vs same time yesterday",
       weekRevenue: "This week",

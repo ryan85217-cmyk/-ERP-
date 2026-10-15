@@ -69,17 +69,25 @@ export async function readRange(idOrUrl: string, range: string): Promise<string[
   return res.data.values ?? [];
 }
 
-/** Replaces the contents of a tab (creating it if needed) with the given rows. */
+/** Replaces the contents of a tab (creating it if needed) with the given rows; row 1 is styled as a frozen header. */
 export async function writeSheet(idOrUrl: string, title: string, rows: (string | number | null)[][]) {
   const c = await client();
   const id = spreadsheetId(idOrUrl);
-  const titles = await getSheetTitles(id);
-  if (!titles.includes(title)) {
+  const sheetIdOf = async () => {
+    const res = await c.request<{ sheets: { properties: { title: string; sheetId: number } }[] }>({
+      url: `${API}/${id}`,
+      params: { fields: "sheets.properties(title,sheetId)" },
+    });
+    return res.data.sheets.find((s) => s.properties.title === title)?.properties.sheetId;
+  };
+  let sheetId = await sheetIdOf();
+  if (sheetId === undefined) {
     await c.request({
       url: `${API}/${id}:batchUpdate`,
       method: "POST",
       data: { requests: [{ addSheet: { properties: { title } } }] },
     });
+    sheetId = (await sheetIdOf())!;
   }
   const range = `'${title.replace(/'/g, "''")}'`;
   await c.request({ url: `${API}/${id}/values/${encodeURIComponent(range)}:clear`, method: "POST" });
@@ -89,4 +97,44 @@ export async function writeSheet(idOrUrl: string, title: string, rows: (string |
     params: { valueInputOption: "USER_ENTERED" },
     data: { values: rows.map((r) => r.map((v) => v ?? "")) },
   });
+  await c.request({
+    url: `${API}/${id}:batchUpdate`,
+    method: "POST",
+    data: {
+      requests: [
+        { updateSheetProperties: { properties: { sheetId, gridProperties: { frozenRowCount: 1 } }, fields: "gridProperties.frozenRowCount" } },
+        {
+          repeatCell: {
+            range: { sheetId, startRowIndex: 0, endRowIndex: 1 },
+            cell: { userEnteredFormat: { textFormat: { bold: true }, backgroundColor: { red: 0.91, green: 0.96, blue: 0.92 } } },
+            fields: "userEnteredFormat(textFormat,backgroundColor)",
+          },
+        },
+        { autoResizeDimensions: { dimensions: { sheetId, dimension: "COLUMNS", startIndex: 0, endIndex: Math.max(1, rows[0]?.length ?? 1) } } },
+      ],
+    },
+  });
+}
+
+/** Deletes the untouched "Sheet1" / "工作表1" tab a new spreadsheet starts with, once other tabs exist. */
+export async function removeEmptyDefaultSheets(idOrUrl: string) {
+  const c = await client();
+  const id = spreadsheetId(idOrUrl);
+  const res = await c.request<{ sheets: { properties: { title: string; sheetId: number } }[] }>({
+    url: `${API}/${id}`,
+    params: { fields: "sheets.properties(title,sheetId)" },
+  });
+  const defaults = res.data.sheets.filter((s) => /^(Sheet|工作表|シート)\s?1$/.test(s.properties.title));
+  if (!defaults.length || defaults.length === res.data.sheets.length) return;
+  for (const s of defaults) {
+    const v = await c.request<{ values?: unknown[][] }>({
+      url: `${API}/${id}/values/${encodeURIComponent(`'${s.properties.title}'`)}`,
+    });
+    if (v.data.values?.length) continue;
+    await c.request({
+      url: `${API}/${id}:batchUpdate`,
+      method: "POST",
+      data: { requests: [{ deleteSheet: { sheetId: s.properties.sheetId } }] },
+    });
+  }
 }

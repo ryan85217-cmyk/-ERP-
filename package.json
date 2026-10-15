@@ -16,7 +16,8 @@
     "postinstall": "prisma generate",
     "db:start": "node scripts/dev-db.mjs",
     "start:prod": "node scripts/start.mjs",
-    "sheets:import": "tsx scripts/sheets-import.ts"
+    "sheets:import": "tsx scripts/sheets-import.ts",
+    "sheets:export": "tsx scripts/sheets-export.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
