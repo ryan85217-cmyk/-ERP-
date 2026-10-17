@@ -22,5 +22,5 @@ export function middleware(req: NextRequest) {
 
 export const config = {
   // /api/integrations/* has its own bearer-token check (n8n can't do the Basic Auth dance)
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|api/integrations|api/mock-pos).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|api/integrations|api/mock-pos|api/health).*)"],
 };
