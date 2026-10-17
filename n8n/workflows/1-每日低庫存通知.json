@@ -2,7 +2,7 @@
  "name": "ERP｜每日低庫存通知",
  "nodes": [
   {
-   "id": "19ae57de-853c-4fb3-af09-1b09a8d2e814",
+   "id": "45ef37eb-609c-47a7-a4d4-f8fdc796db86",
    "name": "每天定時",
    "type": "n8n-nodes-base.scheduleTrigger",
    "typeVersion": 1.2,
@@ -22,7 +22,7 @@
    }
   },
   {
-   "id": "3e0b06c0-1ae2-4061-9f8c-534eb2db335b",
+   "id": "8ea15f2f-be5d-4010-9073-5179d4357216",
    "name": "手動執行",
    "type": "n8n-nodes-base.webhook",
    "typeVersion": 2,
@@ -42,10 +42,10 @@
      "name": "ERP API token"
     }
    },
-   "webhookId": "8768da6e-5875-4972-83df-7dfeb3e30f93"
+   "webhookId": "45b212de-308f-4ede-affe-e532dc1fd5a7"
   },
   {
-   "id": "16e8bcd4-501e-45f1-b871-22750e65871a",
+   "id": "656c7b6f-7a04-40d5-87e9-6d3c25dc5c87",
    "name": "取低庫存",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -66,7 +66,7 @@
    }
   },
   {
-   "id": "d9357268-5e1d-46e0-bf63-13416e2777ee",
+   "id": "a970dbad-0486-4a9b-b530-de6f0019f93e",
    "name": "有資料才寄",
    "type": "n8n-nodes-base.if",
    "typeVersion": 2.2,
@@ -84,7 +84,7 @@
      },
      "conditions": [
       {
-       "id": "b453a35c-e2df-4194-ab88-fd24d715128c",
+       "id": "73848a39-8c49-450c-bf6f-b0116699f082",
        "leftValue": "={{ $json.count }}",
        "rightValue": 0,
        "operator": {
@@ -99,25 +99,27 @@
    }
   },
   {
-   "id": "80221078-11b4-4511-a0e0-400be03b624f",
+   "id": "71752941-5cbb-497f-9552-1e0d0314d3fe",
    "name": "寄 Gmail",
-   "type": "n8n-nodes-base.emailSend",
-   "typeVersion": 2.1,
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
    "position": [
     780,
     100
    ],
    "parameters": {
-    "fromEmail": "智慧門市 ERP <ryan85217@gmail.com>",
-    "toEmail": "ryan85217@gmail.com",
-    "subject": "={{ $json.subject }}",
-    "emailFormat": "html",
-    "html": "={{ $json.html }}",
+    "method": "POST",
+    "url": "https://api.resend.com/emails",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "sendBody": true,
+    "specifyBody": "json",
+    "jsonBody": "={{ JSON.stringify({ from: \"智慧門市 ERP <onboarding@resend.dev>\", to: [\"ryan85217@gmail.com\"], subject: $json.subject, html: $json.html }) }}",
     "options": {}
    },
    "credentials": {
-    "smtp": {
-     "name": "SMTP account"
+    "httpHeaderAuth": {
+     "name": "Resend API"
     }
    }
   }

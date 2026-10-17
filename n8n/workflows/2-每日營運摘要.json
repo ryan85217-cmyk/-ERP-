@@ -2,7 +2,7 @@
  "name": "ERP｜每日營運摘要",
  "nodes": [
   {
-   "id": "45dd4f44-5caf-48e1-a0ae-70aa847e90ca",
+   "id": "f020db95-761b-4115-a913-a7c008709afd",
    "name": "每天定時",
    "type": "n8n-nodes-base.scheduleTrigger",
    "typeVersion": 1.2,
@@ -22,7 +22,7 @@
    }
   },
   {
-   "id": "daecc280-cd34-4e03-9736-c821e8e783a4",
+   "id": "31c9c9f0-9ab3-4b05-a072-41c07978687b",
    "name": "手動執行",
    "type": "n8n-nodes-base.webhook",
    "typeVersion": 2,
@@ -42,10 +42,10 @@
      "name": "ERP API token"
     }
    },
-   "webhookId": "ea565d86-8837-4dab-85ff-fefc3c7b6f39"
+   "webhookId": "a4d347a7-5e9a-47d6-9a51-31dd289fa334"
   },
   {
-   "id": "372801a9-6217-4652-bd08-cda1d59d77cd",
+   "id": "664b49ad-4fc6-410f-a046-e17b9c0c17d4",
    "name": "取昨日摘要",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -66,25 +66,27 @@
    }
   },
   {
-   "id": "97f5c513-e579-4d41-b9ef-5cd09b93ac10",
+   "id": "5ef9f5ba-5334-48d4-90c0-e554b827da17",
    "name": "寄 Gmail",
-   "type": "n8n-nodes-base.emailSend",
-   "typeVersion": 2.1,
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
    "position": [
     520,
     100
    ],
    "parameters": {
-    "fromEmail": "智慧門市 ERP <ryan85217@gmail.com>",
-    "toEmail": "ryan85217@gmail.com",
-    "subject": "={{ $json.subject }}",
-    "emailFormat": "html",
-    "html": "={{ $json.html }}",
+    "method": "POST",
+    "url": "https://api.resend.com/emails",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "sendBody": true,
+    "specifyBody": "json",
+    "jsonBody": "={{ JSON.stringify({ from: \"智慧門市 ERP <onboarding@resend.dev>\", to: [\"ryan85217@gmail.com\"], subject: $json.subject, html: $json.html }) }}",
     "options": {}
    },
    "credentials": {
-    "smtp": {
-     "name": "SMTP account"
+    "httpHeaderAuth": {
+     "name": "Resend API"
     }
    }
   }

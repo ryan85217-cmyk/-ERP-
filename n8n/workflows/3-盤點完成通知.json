@@ -2,7 +2,7 @@
  "name": "ERP｜盤點完成通知",
  "nodes": [
   {
-   "id": "b6f9dde0-cea6-437a-a978-e12452e797d5",
+   "id": "237aa041-77c1-45f7-b744-030732a29c89",
    "name": "ERP 盤點完成",
    "type": "n8n-nodes-base.webhook",
    "typeVersion": 2,
@@ -22,28 +22,30 @@
      "name": "ERP API token"
     }
    },
-   "webhookId": "a69ec8ff-8188-4a03-b308-cac1e5ddf251"
+   "webhookId": "a6149914-8298-4db6-8753-1c438e76f109"
   },
   {
-   "id": "f3983703-2a21-445e-bc35-b46f750c4b35",
+   "id": "cedf1538-cbe0-46ae-9dfe-7ed6ba970eba",
    "name": "寄 Gmail",
-   "type": "n8n-nodes-base.emailSend",
-   "typeVersion": 2.1,
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
    "position": [
     260,
     0
    ],
    "parameters": {
-    "fromEmail": "智慧門市 ERP <ryan85217@gmail.com>",
-    "toEmail": "ryan85217@gmail.com",
-    "subject": "={{ $json.body.subject }}",
-    "emailFormat": "html",
-    "html": "={{ $json.body.html }}",
+    "method": "POST",
+    "url": "https://api.resend.com/emails",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "sendBody": true,
+    "specifyBody": "json",
+    "jsonBody": "={{ JSON.stringify({ from: \"智慧門市 ERP <onboarding@resend.dev>\", to: [\"ryan85217@gmail.com\"], subject: $json.body.subject, html: $json.body.html }) }}",
     "options": {}
    },
    "credentials": {
-    "smtp": {
-     "name": "SMTP account"
+    "httpHeaderAuth": {
+     "name": "Resend API"
     }
    }
   }

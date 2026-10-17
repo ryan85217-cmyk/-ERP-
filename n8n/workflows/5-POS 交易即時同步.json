@@ -2,7 +2,7 @@
  "name": "ERP｜POS 交易即時同步",
  "nodes": [
   {
-   "id": "d68f595a-7407-439b-8484-029a08a87b95",
+   "id": "b2be6f44-7581-4e67-abac-06d8251e9fd0",
    "name": "每 15 分鐘",
    "type": "n8n-nodes-base.scheduleTrigger",
    "typeVersion": 1.2,
@@ -22,7 +22,7 @@
    }
   },
   {
-   "id": "4d820e1f-2efe-492a-bdfc-249d69e49a44",
+   "id": "fcc70123-c8e4-4678-a908-6a32c7c97d52",
    "name": "手動執行",
    "type": "n8n-nodes-base.webhook",
    "typeVersion": 2,
@@ -42,10 +42,10 @@
      "name": "ERP API token"
     }
    },
-   "webhookId": "f3b1bd93-de01-4b90-8ef4-195fd86cf993"
+   "webhookId": "d801e40d-84de-4304-9b21-5883a5e88edc"
   },
   {
-   "id": "93d44e4d-3682-42da-9d62-237a0f8b4f6b",
+   "id": "86d49493-6b57-4192-87a1-f7e90f99b7f6",
    "name": "ERP：同步起點",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -67,7 +67,7 @@
    }
   },
   {
-   "id": "ba0a49d6-caf0-4818-8507-dfaaadae2c53",
+   "id": "da4e399b-687c-4923-96b8-299d6a75444a",
    "name": "POS：取交易",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -102,7 +102,7 @@
    }
   },
   {
-   "id": "a50a4775-cb86-4185-80a3-374be369ad01",
+   "id": "e3c3e38d-4ae6-4aab-aa8d-032a4f979c15",
    "name": "有新交易",
    "type": "n8n-nodes-base.if",
    "typeVersion": 2.2,
@@ -120,7 +120,7 @@
      },
      "conditions": [
       {
-       "id": "b157709e-a027-4b9d-a9ad-dc05d7752144",
+       "id": "ca158ac8-41ba-4f53-9db8-9ca21ddd12a3",
        "leftValue": "={{ $json.count }}",
        "rightValue": 0,
        "operator": {
@@ -135,7 +135,7 @@
    }
   },
   {
-   "id": "000e7412-b6b3-43c1-97b1-c33d9fa39fa5",
+   "id": "fe06cdaa-48e4-4523-a085-d6ad030c11b0",
    "name": "ERP：寫入交易",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,

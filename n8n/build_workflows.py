@@ -14,7 +14,11 @@ ERP_BASE = os.environ.get("ERP_URL", "https://erp-web-production-d0df.up.railway
 ERP = f"{ERP_BASE}/api/integrations"
 POS = f"{ERP_BASE}/api/mock-pos/v1"
 TO = "ryan85217@gmail.com"
-FROM = "智慧門市 ERP <ryan85217@gmail.com>"
+# MAIL=smtp uses an SMTP credential; the default, resend, sends over HTTPS (hosts like Railway
+# Trial/Hobby block outbound SMTP). Resend's free tier without a verified domain can only send
+# from onboarding@resend.dev to the account owner's address.
+MAIL = os.environ.get("MAIL", "resend")
+FROM = "智慧門市 ERP <onboarding@resend.dev>" if MAIL == "resend" else "智慧門市 ERP <ryan85217@gmail.com>"
 
 
 def env():
@@ -39,9 +43,17 @@ def api(method, path, body=None):
 
 
 def creds():
-    by_type = {c["type"]: c for c in api("GET", "/credentials?limit=100")["data"]}
-    erp, smtp = by_type["httpHeaderAuth"], by_type["smtp"]
-    return {"erp": {"httpHeaderAuth": {"id": erp["id"], "name": erp["name"]}}, "smtp": {"smtp": {"id": smtp["id"], "name": smtp["name"]}}}
+    all_creds = api("GET", "/credentials?limit=100")["data"]
+    by_name = {c["name"]: c for c in all_creds}
+    erp = by_name["ERP API token"]
+    out = {"erp": {"httpHeaderAuth": {"id": erp["id"], "name": erp["name"]}}}
+    if MAIL == "resend":
+        r = by_name["Resend API"]
+        out["mail"] = {"httpHeaderAuth": {"id": r["id"], "name": r["name"]}}
+    else:
+        smtp = next(c for c in all_creds if c["type"] == "smtp")
+        out["mail"] = {"smtp": {"id": smtp["id"], "name": smtp["name"]}}
+    return out
 
 
 def node(name, type_, version, params, pos, credentials=None, **extra):
@@ -107,13 +119,32 @@ def if_count(pos):
 
 
 def email(pos, c, prefix="$json"):
+    if MAIL == "resend":
+        body = "={{ JSON.stringify({ from: " + json.dumps(FROM, ensure_ascii=False) + ", to: [" + json.dumps(TO) + "], subject: " + prefix + ".subject, html: " + prefix + ".html }) }}"
+        return node(
+            "寄 Gmail",
+            "n8n-nodes-base.httpRequest",
+            4.2,
+            {
+                "method": "POST",
+                "url": "https://api.resend.com/emails",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "httpHeaderAuth",
+                "sendBody": True,
+                "specifyBody": "json",
+                "jsonBody": body,
+                "options": {},
+            },
+            pos,
+            c["mail"],
+        )
     return node(
         "寄 Gmail",
         "n8n-nodes-base.emailSend",
         2.1,
         {"fromEmail": FROM, "toEmail": TO, "subject": "={{ " + prefix + ".subject }}", "emailFormat": "html", "html": "={{ " + prefix + ".html }}", "options": {}},
         pos,
-        c["smtp"],
+        c["mail"],
     )
 
 
@@ -212,7 +243,10 @@ def strip_ids(wf):
 
 
 if __name__ == "__main__":
-    fake = {"erp": {"httpHeaderAuth": {"id": "", "name": "ERP API token"}}, "smtp": {"smtp": {"id": "", "name": "SMTP account"}}}
+    fake = {
+        "erp": {"httpHeaderAuth": {"id": "", "name": "ERP API token"}},
+        "mail": {"httpHeaderAuth": {"id": "", "name": "Resend API"}} if MAIL == "resend" else {"smtp": {"id": "", "name": "SMTP account"}},
+    }
     out = os.path.join(os.path.dirname(__file__), "workflows")
     os.makedirs(out, exist_ok=True)
     for i, wf in enumerate(workflows(fake), 1):

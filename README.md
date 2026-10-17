@@ -110,7 +110,7 @@ ERP 提供以 `INTEGRATION_TOKEN` 保護的 API（`Authorization: Bearer …`）
 
 每個排程流程另有「手動執行」webhook（`/webhook/erp-run-…`，同樣要帶 token）。新報表只寄提醒：真實資料一律在本機匯入。
 
-重建流程：在 n8n 先建好「ERP API token」（Header Auth，`Authorization: Bearer <INTEGRATION_TOKEN>`）與 SMTP 憑證，於 `.env.zeabur.local` 設 `N8N_URL`、`N8N_API_KEY`，再執行 `python3 n8n/build_workflows.py`。
+重建流程：在 n8n 先建好兩個 Header Auth 憑證「ERP API token」（`Authorization: Bearer <INTEGRATION_TOKEN>`）與「Resend API」（`Authorization: Bearer <Resend API key>`），於 `.env.zeabur.local` 設 `N8N_URL`、`N8N_API_KEY`，再執行 `python3 n8n/build_workflows.py`。寄信預設走 Resend 的 HTTPS API，因為 Railway 等主機的試用 / Hobby 方案封鎖對外 SMTP；若主機允許 SMTP，可用 `MAIL=smtp` 改回 SMTP 憑證。
 
 ## 功能模組
 
