@@ -2,7 +2,7 @@
  "name": "ERP｜POS 交易即時同步",
  "nodes": [
   {
-   "id": "3e8f3bb7-90a0-445a-808f-06ea35f568ee",
+   "id": "d68f595a-7407-439b-8484-029a08a87b95",
    "name": "每 15 分鐘",
    "type": "n8n-nodes-base.scheduleTrigger",
    "typeVersion": 1.2,
@@ -22,7 +22,7 @@
    }
   },
   {
-   "id": "1d460d2e-4c51-4de9-bc36-0d4321be6479",
+   "id": "4d820e1f-2efe-492a-bdfc-249d69e49a44",
    "name": "手動執行",
    "type": "n8n-nodes-base.webhook",
    "typeVersion": 2,
@@ -42,10 +42,10 @@
      "name": "ERP API token"
     }
    },
-   "webhookId": "7e2b71ba-903f-4d1f-a829-8694f87233c7"
+   "webhookId": "f3b1bd93-de01-4b90-8ef4-195fd86cf993"
   },
   {
-   "id": "5267859b-68d6-45f1-bc92-a9b79a0b64cb",
+   "id": "93d44e4d-3682-42da-9d62-237a0f8b4f6b",
    "name": "ERP：同步起點",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -55,7 +55,7 @@
    ],
    "parameters": {
     "method": "GET",
-    "url": "https://smart-store-erp.zeabur.app/api/integrations/pos/cursor",
+    "url": "https://erp-web-production-d0df.up.railway.app/api/integrations/pos/cursor",
     "authentication": "genericCredentialType",
     "genericAuthType": "httpHeaderAuth",
     "options": {}
@@ -67,7 +67,7 @@
    }
   },
   {
-   "id": "29fb1f2c-46bd-4e40-b072-44a2d9239d82",
+   "id": "ba0a49d6-caf0-4818-8507-dfaaadae2c53",
    "name": "POS：取交易",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -77,7 +77,7 @@
    ],
    "parameters": {
     "method": "GET",
-    "url": "https://smart-store-erp.zeabur.app/api/mock-pos/v1/transactions",
+    "url": "https://erp-web-production-d0df.up.railway.app/api/mock-pos/v1/transactions",
     "authentication": "genericCredentialType",
     "genericAuthType": "httpHeaderAuth",
     "options": {},
@@ -102,7 +102,7 @@
    }
   },
   {
-   "id": "29a80056-7e5e-4baf-821f-6dd88614f06c",
+   "id": "a50a4775-cb86-4185-80a3-374be369ad01",
    "name": "有新交易",
    "type": "n8n-nodes-base.if",
    "typeVersion": 2.2,
@@ -120,7 +120,7 @@
      },
      "conditions": [
       {
-       "id": "bc7f4d6a-0774-49b8-b69a-f5f3a0c02d78",
+       "id": "b157709e-a027-4b9d-a9ad-dc05d7752144",
        "leftValue": "={{ $json.count }}",
        "rightValue": 0,
        "operator": {
@@ -135,7 +135,7 @@
    }
   },
   {
-   "id": "701231b9-7ae8-4cef-941c-1c320ac1f1d5",
+   "id": "000e7412-b6b3-43c1-97b1-c33d9fa39fa5",
    "name": "ERP：寫入交易",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -145,7 +145,7 @@
    ],
    "parameters": {
     "method": "POST",
-    "url": "https://smart-store-erp.zeabur.app/api/integrations/pos/transactions",
+    "url": "https://erp-web-production-d0df.up.railway.app/api/integrations/pos/transactions",
     "authentication": "genericCredentialType",
     "genericAuthType": "httpHeaderAuth",
     "options": {},

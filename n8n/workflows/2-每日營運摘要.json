@@ -2,7 +2,7 @@
  "name": "ERP｜每日營運摘要",
  "nodes": [
   {
-   "id": "b106fbc2-7228-468a-aa39-8e78b86af1c8",
+   "id": "45dd4f44-5caf-48e1-a0ae-70aa847e90ca",
    "name": "每天定時",
    "type": "n8n-nodes-base.scheduleTrigger",
    "typeVersion": 1.2,
@@ -22,7 +22,7 @@
    }
   },
   {
-   "id": "d0585c19-1866-45e4-88a4-4669a5e09985",
+   "id": "daecc280-cd34-4e03-9736-c821e8e783a4",
    "name": "手動執行",
    "type": "n8n-nodes-base.webhook",
    "typeVersion": 2,
@@ -42,10 +42,10 @@
      "name": "ERP API token"
     }
    },
-   "webhookId": "82acb72c-0b97-49a6-9bed-f131f58a4b7e"
+   "webhookId": "ea565d86-8837-4dab-85ff-fefc3c7b6f39"
   },
   {
-   "id": "b4633638-dff9-45df-8a72-ceef1546a9cd",
+   "id": "372801a9-6217-4652-bd08-cda1d59d77cd",
    "name": "取昨日摘要",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -54,7 +54,7 @@
     100
    ],
    "parameters": {
-    "url": "https://smart-store-erp.zeabur.app/api/integrations/daily-summary",
+    "url": "https://erp-web-production-d0df.up.railway.app/api/integrations/daily-summary",
     "authentication": "genericCredentialType",
     "genericAuthType": "httpHeaderAuth",
     "options": {}
@@ -66,7 +66,7 @@
    }
   },
   {
-   "id": "c1489f8f-eb8d-4dd3-8e7f-05348b570689",
+   "id": "97f5c513-e579-4d41-b9ef-5cd09b93ac10",
    "name": "寄 Gmail",
    "type": "n8n-nodes-base.emailSend",
    "typeVersion": 2.1,

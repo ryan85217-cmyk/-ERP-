@@ -9,9 +9,10 @@ by name+id; create them in n8n first: "ERP API token" (Header Auth) and an SMTP 
 """
 import json, os, sys, urllib.request, uuid
 
-ERP = "https://smart-store-erp.zeabur.app/api/integrations"
-# simulated POS vendor API (lives in the ERP app for the demo; swap for the real POS API later)
-POS = "https://smart-store-erp.zeabur.app/api/mock-pos/v1"
+# ERP base URL (override with ERP_URL); the simulated POS vendor API lives in the ERP app for the demo
+ERP_BASE = os.environ.get("ERP_URL", "https://erp-web-production-d0df.up.railway.app").rstrip("/")
+ERP = f"{ERP_BASE}/api/integrations"
+POS = f"{ERP_BASE}/api/mock-pos/v1"
 TO = "ryan85217@gmail.com"
 FROM = "智慧門市 ERP <ryan85217@gmail.com>"
 

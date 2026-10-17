@@ -2,7 +2,7 @@
  "name": "ERP｜每日低庫存通知",
  "nodes": [
   {
-   "id": "474bc506-0499-4338-84be-5b954b786c80",
+   "id": "19ae57de-853c-4fb3-af09-1b09a8d2e814",
    "name": "每天定時",
    "type": "n8n-nodes-base.scheduleTrigger",
    "typeVersion": 1.2,
@@ -22,7 +22,7 @@
    }
   },
   {
-   "id": "8ead1e47-111f-4a59-86d7-cc2c05b0125f",
+   "id": "3e0b06c0-1ae2-4061-9f8c-534eb2db335b",
    "name": "手動執行",
    "type": "n8n-nodes-base.webhook",
    "typeVersion": 2,
@@ -42,10 +42,10 @@
      "name": "ERP API token"
     }
    },
-   "webhookId": "3e7a11b8-ddc4-41f0-bd68-0212e8e22604"
+   "webhookId": "8768da6e-5875-4972-83df-7dfeb3e30f93"
   },
   {
-   "id": "9139820d-b625-4bfc-9335-86477893065c",
+   "id": "16e8bcd4-501e-45f1-b871-22750e65871a",
    "name": "取低庫存",
    "type": "n8n-nodes-base.httpRequest",
    "typeVersion": 4.2,
@@ -54,7 +54,7 @@
     100
    ],
    "parameters": {
-    "url": "https://smart-store-erp.zeabur.app/api/integrations/low-stock",
+    "url": "https://erp-web-production-d0df.up.railway.app/api/integrations/low-stock",
     "authentication": "genericCredentialType",
     "genericAuthType": "httpHeaderAuth",
     "options": {}
@@ -66,7 +66,7 @@
    }
   },
   {
-   "id": "e7659ad5-9cb6-4b45-94d2-551571e71d79",
+   "id": "d9357268-5e1d-46e0-bf63-13416e2777ee",
    "name": "有資料才寄",
    "type": "n8n-nodes-base.if",
    "typeVersion": 2.2,
@@ -84,7 +84,7 @@
      },
      "conditions": [
       {
-       "id": "309179f0-50e9-4ff3-8d99-0d4c5531dd8b",
+       "id": "b453a35c-e2df-4194-ab88-fd24d715128c",
        "leftValue": "={{ $json.count }}",
        "rightValue": 0,
        "operator": {
@@ -99,7 +99,7 @@
    }
   },
   {
-   "id": "2fc22cc8-ae99-4f1d-a498-fe71c7bfa852",
+   "id": "80221078-11b4-4511-a0e0-400be03b624f",
    "name": "寄 Gmail",
    "type": "n8n-nodes-base.emailSend",
    "typeVersion": 2.1,
