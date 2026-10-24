@@ -112,6 +112,22 @@ ERP 提供以 `INTEGRATION_TOKEN` 保護的 API（`Authorization: Bearer …`）
 
 重建流程：在 n8n 先建好兩個 Header Auth 憑證「ERP API token」（`Authorization: Bearer <INTEGRATION_TOKEN>`）與「Resend API」（`Authorization: Bearer <Resend API key>`），於 `.env.zeabur.local` 設 `N8N_URL`、`N8N_API_KEY`，再執行 `python3 n8n/build_workflows.py`。寄信預設走 Resend 的 HTTPS API，因為 Railway 等主機的試用 / Hobby 方案封鎖對外 SMTP；若主機允許 SMTP，可用 `MAIL=smtp` 改回 SMTP 憑證。
 
+## 本機常駐執行（macOS launchd）
+
+本機版可以設成開機自動啟動、當掉自動重開（不需要開著終端機）：
+
+- `~/Library/LaunchAgents/com.retail-erp.db.plist`：內嵌 PostgreSQL（`scripts/dev-db.mjs`）
+- `~/Library/LaunchAgents/com.retail-erp.web.plist`：`next start -p 3000`（正式模式，需先 `npm run build`）
+- 紀錄檔：`~/Library/Logs/retail-erp/db.log`、`web.log`
+
+```bash
+# 改了程式碼後：重新建置並重啟網站
+npm run build && launchctl kickstart -k gui/$(id -u)/com.retail-erp.web
+# 暫停 / 恢復
+launchctl bootout gui/$(id -u)/com.retail-erp.web
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.retail-erp.web.plist
+```
+
 ## 功能模組
 
 ### 1. 商品資訊管理

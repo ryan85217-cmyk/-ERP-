@@ -1,6 +1,7 @@
 // Local PostgreSQL for development without Docker / system install.
 // Usage: npm run db:start   (keeps running; Ctrl+C to stop)
 import EmbeddedPostgres from "embedded-postgres";
+import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
@@ -11,12 +12,12 @@ const firstRun = !existsSync(resolve(databaseDir, "PG_VERSION"));
 const pidFile = resolve(databaseDir, "postmaster.pid");
 if (existsSync(pidFile)) {
   const pid = Number(readFileSync(pidFile, "utf8").split("\n")[0]);
+  // the PID must still exist AND be a postgres process (a stale lock's PID can be reused by anything)
   let alive = false;
   try {
-    process.kill(pid, 0);
-    alive = true;
+    alive = /postgres/.test(execFileSync("ps", ["-p", String(pid), "-o", "comm="], { encoding: "utf8" }));
   } catch {
-    // stale lock from a crash; PostgreSQL removes it on start
+    // no such process: stale lock from a crash; PostgreSQL removes it on start
   }
   if (alive) {
     console.log(`資料庫已經在執行中（PID ${pid}），不需要再啟動。 Database is already running (PID ${pid}).`);
