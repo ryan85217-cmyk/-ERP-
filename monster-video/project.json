@@ -1,0 +1,115 @@
+{
+  "format": { "width": 2520, "height": 1080, "fps": 24 },
+  "font_file": "/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc",
+
+  "refs": [
+    { "id": "taipei101", "name": "台北 101",   "source": "input/taipei101.jpg" },
+    { "id": "goddess",   "name": "女神",       "source": "input/monsters/01_goddess.mp4",   "at": null },
+    { "id": "underpass", "name": "地下道異獸", "source": "input/monsters/02_underpass.mp4", "at": null },
+    { "id": "monster4",  "name": "怪獸四",     "source": "input/monsters/03_monster4.mp4",  "at": null },
+    { "id": "horned",    "name": "巨角獸",     "source": "input/monsters/04_horned.mp4",    "at": null },
+    { "id": "monster5",  "name": "怪獸五",     "source": "input/monsters/05_monster5.mp4",  "at": null },
+    { "id": "monster6",  "name": "怪獸六",     "source": "input/monsters/06_monster6.mp4",  "at": null }
+  ],
+
+  "generation": {
+    "model": "Seedance 2.5",
+    "mode": "多模態參考",
+    "ratio": "21:9",
+    "resolution": "1080p",
+    "duration": 15,
+    "points_per_clip": 960,
+    "ref_token": "@圖片{n}",
+    "style": "寫實電影感災難片，變形寬銀幕 21:9，手持攝影機，長焦壓縮空間，空氣中瀰漫沙塵與霧霾，低飽和冷色調，自然光，膠片質感。全片無字幕、無文字、無浮水印、無標誌。",
+    "negative": "不要出現任何文字、字幕、招牌亂碼；怪獸造型不可偏離參考圖；一個鏡頭只出現一隻怪獸；鏡頭之間用硬切，不要溶接或轉場特效。",
+    "cli": [
+      "dreamina", "multimodal2video",
+      "--prompt", "{prompt}",
+      "{images}",
+      "--ratio", "{ratio}",
+      "--video_resolution", "{resolution}",
+      "--duration", "{duration}",
+      "--model_version", "seedance2.5",
+      "--poll", "600"
+    ],
+    "cli_image_flag": "--image"
+  },
+
+  "segments": [
+    {
+      "id": "part1",
+      "clip": "input/seedance_part1.mp4",
+      "refs": ["taipei101", "goddess", "underpass", "monster4"],
+      "shots": [
+        { "id": "s1_city", "sec": [0, 3], "monster": null,
+          "prompt": "大遠景，清晨的台北盆地，{taipei101} 的台北 101 矗立在灰黃色的霧霾中，街道空無一人，遠處傳來低沉震動，鏡頭極緩慢向前推。" },
+        { "id": "s2_goddess", "sec": [3, 7], "monster": "goddess",
+          "prompt": "仰角全景，{goddess} 的巨大女神形體從雲層中緩緩降下，懸浮在 {taipei101} 的 101 大樓旁，身形高過大樓，天空開闊，鏡頭由下往上慢搖。" },
+        { "id": "s3_underpass", "sec": [7, 11], "monster": "underpass",
+          "prompt": "低角度中景，昏暗的行人地下道，日光燈閃爍，{underpass} 的異獸從地下道深處的黑暗中無聲爬出，只有輪廓與反光，鏡頭固定不動，壓抑寂靜。" },
+        { "id": "s4_monster4", "sec": [11, 15], "monster": "monster4",
+          "prompt": "街道平視長焦，{monster4} 的怪獸橫越信義區的大馬路，踩碎車輛，背景遠處可見 {taipei101} 的 101，手持鏡頭輕微晃動跟拍。" }
+      ]
+    },
+    {
+      "id": "part2",
+      "clip": "input/seedance_part2.mp4",
+      "refs": ["taipei101", "horned", "monster5", "monster6"],
+      "shots": [
+        { "id": "s5_horned", "sec": [0, 5], "monster": "horned",
+          "prompt": "正面仰角近景快速推近，{horned} 的巨角獸在 {taipei101} 的 101 大樓前仰頭咆哮，張開巨口，衝擊波震碎周圍大樓玻璃，碎片與沙塵向鏡頭噴湧。" },
+        { "id": "s6_monster5", "sec": [5, 10], "monster": "monster5",
+          "prompt": "空拍俯角環繞，{monster5} 的怪獸攀上高樓群，建築外牆崩落，濃煙升起，遠處 {taipei101} 的 101 在煙塵中若隱若現。" },
+        { "id": "s7_monster6", "sec": [10, 15], "monster": "monster6",
+          "prompt": "逆光大遠景，{monster6} 的怪獸巨大剪影佇立在廢墟與夕照之間，與 {taipei101} 的 101 並肩而立，強烈的白色日光從牠身後漫出，鏡頭緩慢後拉。" }
+      ]
+    }
+  ],
+
+  "music": {
+    "file": "input/music.mp3",
+    "start": 137.0,
+    "bpm_hint": 99
+  },
+
+  "edit": {
+    "order": ["s1_city", "s2_goddess", "s4_monster4", "s3_underpass", "s5_horned", "s6_monster5", "s7_monster6"],
+    "silence_shot": "s3_underpass",
+    "drop_shot": "s5_horned",
+    "speed_min": 0.5,
+    "speed_max": 2.0,
+    "slowmo": "dup",
+    "flash_in": 0.30,
+    "white_out": 0.40,
+    "white_to_black": 1.20,
+    "title_min": 3.0,
+    "overrides": { "silence_start": null, "drop": null, "bass_out": null }
+  },
+
+  "grade": {
+    "base": "eq=saturation=0.66:contrast=1.14:brightness=-0.015,colorbalance=rs=-0.07:gs=0.01:bs=0.08:rm=-0.01:bm=0.01:rh=0.05:gh=0.03:bh=-0.08,curves=all='0/0 0.25/0.19 0.5/0.5 0.75/0.81 1/1'",
+    "vignette": "vignette=angle=PI/4.6",
+    "grain": "noise=c0s=9:c0f=t+u",
+    "per_shot": {
+      "s2_goddess": "sky_to_dust"
+    },
+    "sky_to_dust": { "color": [201, 178, 138], "strength": 0.92, "lift": 1.12 }
+  },
+
+  "subtitles": {
+    "size": 50,
+    "lines": [
+      { "shot": "s1_city",      "text": "那天早上，城市比平常安靜。" },
+      { "shot": "s2_goddess",   "text": "我們抬頭，以為那是神。" },
+      { "shot": "s3_underpass", "text": "沒有人注意到，腳下也有東西醒了。" },
+      { "shot": "s5_horned",    "text": "然後，牠們開口了。" },
+      { "shot": "s7_monster6",  "text": "從此，這座城市不再只屬於我們。" }
+    ]
+  },
+
+  "title": {
+    "text": "巨獸之城",
+    "sub": "CITY OF MONSTERS",
+    "foot": "TAIPEI · 2026"
+  }
+}

@@ -1,0 +1,10 @@
+# 素材與輸出不進版控
+input/*
+!input/.gitkeep
+work/
+output/
+selftest/fixtures/
+selftest/work/
+selftest/output/
+selftest/project.json
+__pycache__/
